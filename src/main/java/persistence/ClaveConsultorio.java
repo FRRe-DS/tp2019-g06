@@ -13,24 +13,27 @@ import javax.persistence.Embeddable;
  * @author flor
  */
 @Embeddable
-public class claveConsultorio implements java.io.Serializable {
+public class ClaveConsultorio implements java.io.Serializable {
     @Column(name = "piso", nullable = false)
     private Integer piso;
     
     @Column(name = "numero", nullable = false)
     private Integer numero;
-    
-    public Integer getPiso(){
+
+    public Integer getPiso() {
         return piso;
     }
-    public void setPiso(Integer piso){
+
+    public void setPiso(Integer piso) {
         this.piso = piso;
     }
-    
-    public Integer getNumero(){
+
+    public Integer getNumero() {
         return numero;
     }
-    public void setNumero(Integer numero){
+
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
+    
 }

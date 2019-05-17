@@ -5,31 +5,39 @@
  */
 package persistence;
 
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author flor
  */
+
 @Entity
-public class medico implements java.io.Serializable {
+public class Medico implements java.io.Serializable {
+    
     @Id
     private Integer idMedico;
     
     @NotNull
-    @Column(name = "nombre", nullable = false)
+    @Size(min= 1, max=45)
+    @Column(name= "nombre", nullable = false)
+    @Pattern(regexp = "[a-z \\s A-Z ñ Ñ]{1,45}",message = "El nombre no puede contener caracteres no válidos")
     private String nombre;
     
     @NotNull
-    @Column(name = "apellido", nullable = false)
+    @Size(min= 1, max=45)
+    @Column(name= "apellido", nullable = false)
+    @Pattern(regexp = "[a-z \\s A-Z ñ Ñ]{1,45}",message = "El nombre no puede contener caracteres no válidos")
     private String apellido;
     
     @NotNull
@@ -39,7 +47,6 @@ public class medico implements java.io.Serializable {
     @NotNull
     @Column(name = "sexo", nullable = false)
     @Enumerated(EnumType.STRING)
-    @Past(message = "F 'Sexo Femenino', M 'Sexo Masculino'")
     private String sexo;
     
     @NotNull
@@ -54,62 +61,85 @@ public class medico implements java.io.Serializable {
     @Column(name = "matricula", nullable = false)
     private Integer matricula;
     
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+        name = "idObraSocial",
+            nullable = false)
+    private ObraSocial obraSocial;
   
     //Getters and Setters
-    public Integer getIdMedico(){
+
+    public Integer getIdMedico() {
         return idMedico;
     }
-    public void setIdMedico(Integer idMedico){
+
+    public void setIdMedico(Integer idMedico) {
         this.idMedico = idMedico;
     }
-    
-    public String getNombre(){
+
+    public String getNombre() {
         return nombre;
     }
-    public void setNombre(String nombre){
+
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    public String getApellido(){
+
+    public String getApellido() {
         return apellido;
     }
-    public void setApellido(String apellido){
+
+    public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-    
-    public Integer getDni(){
+
+    public Integer getDni() {
         return dni;
     }
-    public void setDni(Integer dni){
+
+    public void setDni(Integer dni) {
         this.dni = dni;
     }
-    
-    public String getSexo(){
+
+    public String getSexo() {
         return sexo;
     }
-    public void setSexo(String sexo){
+
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-    
-    public String getEstadoCivil(){
+
+    public String getEstadoCivil() {
         return estadoCivil;
     }
-    public void setEstadoCivil(String estadoCivil){
+
+    public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
-    
-    public String getDireccion(){
+
+    public String getDireccion() {
         return direccion;
     }
-    public void setDireccion(String direccion){
+
+    public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    
-    public Integer getMatricula(){
+
+    public Integer getMatricula() {
         return matricula;
     }
-    public void setMatricula(Integer matricula){
+
+    public void setMatricula(Integer matricula) {
         this.matricula = matricula;
+    }
+
+    public ObraSocial getObraSocial() {
+        return obraSocial;
+    }
+
+    public void setObraSocial(ObraSocial obraSocial) {
+        this.obraSocial = obraSocial;
     }
     
 }

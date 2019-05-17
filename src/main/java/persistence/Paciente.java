@@ -14,6 +14,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +23,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 
 
@@ -30,19 +33,18 @@ import javax.validation.constraints.Pattern;
  */
 
 @Entity
-public class paciente implements java.io.Serializable{ // La clase comienza con mayuscula
+public class Paciente implements java.io.Serializable{ 
     @Id
     private Integer idPaciente;
    
     @NotNull
-    @Min(1)
+    @Size(min= 1, max=45)
     @Column(name = "apellido", nullable = false)
     @Pattern(regexp = "[a-z \\s A-Z ñ Ñ]{1,45}",message = "El nombre no puede contener caracteres no válidos")
     private String apellido;
     
     @NotNull
-    @Min(1)
-    //@Since(Min = 1, Max=45)
+    @Size(min= 1, max=45)
     @Column(name= "nombre", nullable = false)
     @Pattern(regexp = "[a-z \\s A-Z ñ Ñ]{1,45}",message = "El nombre no puede contener caracteres no válidos")
     private String nombre;
@@ -61,7 +63,6 @@ public class paciente implements java.io.Serializable{ // La clase comienza con 
     @NotNull
     @Column(name= "sexo", nullable = false)
     @Enumerated(EnumType.STRING)
-    @Past(message = "F 'Sexo Femenino', M 'Sexo Masculino'") //Esto no va, solo puede ser utilizado si uso de tipo date o calendario
     private String sexo;
     
     @NotNull
@@ -74,81 +75,104 @@ public class paciente implements java.io.Serializable{ // La clase comienza con 
     @Column(name= "telefono", nullable = false)
     private Integer telefono;
     
-    @NotNull
-    @Column(name= "obra_social", nullable = false)// se lo puede colocar aparte en otra tabla
-    private String obraSocial;  
-    
+     
     
     @OneToMany(mappedBy = "paciente_id_paciente",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private Set<turno> turnos;
-    public Set getTurnos(){ return turnos;}
+    private Set<Turno> turnos;
+    public Set getTurnos(){ 
+        return turnos;
+    }
+    
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+        name = "idObraSocial",
+            nullable = false)
+    private ObraSocial obraSocial;
     
     //Getters and Setters
-    
-    public Integer getIdPaciente(){ // IdPaciente
+
+    public Integer getIdPaciente() {
         return idPaciente;
     }
-    public void setIdPaciente(Integer idPaciente){
+
+    public void setIdPaciente(Integer idPaciente) {
         this.idPaciente = idPaciente;
     }
-    
-    public String getApellido(){
+
+    public String getApellido() {
         return apellido;
     }
-    public void setApellido(String apellido){
+
+    public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-    
-    public String getNombre(){
+
+    public String getNombre() {
         return nombre;
     }
-    public void setNombre(String nombre){
+
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    public Integer getDni(){
+
+    public Integer getDni() {
         return dni;
     }
-    public void setDni(Integer dni){
+
+    public void setDni(Integer dni) {
         this.dni = dni;
     }
-    
-    public Date getFechaNacimiento(){
+
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
-    public void setFechaNacimiento(Date fechaNacimiento){
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-    
-    public String getSexo(){
+
+    public String getSexo() {
         return sexo;
     }
-    public void setSexo(String sexo){
+
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-    
-    public String getDireccion(){
+
+    public String getDireccion() {
         return direccion;
     }
-    public void setDireccion(String direccion){
+
+    public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    
-    public Integer getTelefono(){
+
+    public Integer getTelefono() {
         return telefono;
     }
-    public void setTelefono(Integer telefono){
+
+    public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
+
     
-    public String getObraSocial(){
+    public void setTurnos(Set<Turno> turnos) {
+        this.turnos = turnos;
+    }
+
+    public ObraSocial getObraSocial() {
         return obraSocial;
     }
-    public void setObraSocial(String obraSocial){
+
+    public void setObraSocial(ObraSocial obraSocial) {
         this.obraSocial = obraSocial;
     }
+    
+    
+      
 }
 

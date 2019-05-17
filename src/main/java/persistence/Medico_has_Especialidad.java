@@ -17,13 +17,31 @@ import javax.persistence.OneToMany;
  * @author flor
  */
 @Entity
-public class consultorio implements java.io.Serializable {
-   @EmbeddedId
-   private claveConsultorio clave;
-   
-   @OneToMany(mappedBy = "id_turno", 
+public class Medico_has_Especialidad implements java.io.Serializable {
+    @EmbeddedId
+    private ClaveEspecialidadMedico clave;
+ 
+    @OneToMany(mappedBy = "idTurno", 
            fetch = FetchType.LAZY,
            cascade = CascadeType.ALL,
            orphanRemoval = true)
-   private Set<turno> turnos;
+   private Set<Turno> turnos;
+
+    public ClaveEspecialidadMedico getClave() {
+        return clave;
+    }
+
+    public void setClave(ClaveEspecialidadMedico clave) {
+        this.clave = clave;
+    }
+
+    public Set<Turno> getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(Set<Turno> turnos) {
+        this.turnos = turnos;
+    }
+    
+    
 }

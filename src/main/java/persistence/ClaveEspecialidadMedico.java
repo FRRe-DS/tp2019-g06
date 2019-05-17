@@ -13,24 +13,27 @@ import javax.persistence.Embeddable;
  * @author flor
  */
 @Embeddable
-public class claveEspecialidadMedico implements java.io.Serializable {
-    @Column(name = "id_especialidad", nullable = false)
+public class ClaveEspecialidadMedico implements java.io.Serializable {
+    @Column(name = "idEspecialidad", nullable = false)
     private Integer idEspecialidad;
     
-    @Column(name = "id_medico", nullable = false)
+    @Column(name = "idMedico", nullable = false)
     private Integer idMedico;
-    
-    public Integer getIdEspecialidad(){
+
+    public Integer getIdEspecialidad() {
         return idEspecialidad;
     }
-    public void setIdEpecialidad(Integer idEspecialidad){
+
+    public void setIdEspecialidad(Integer idEspecialidad) {
         this.idEspecialidad = idEspecialidad;
     }
-    
-    public Integer getIdMedico(){
+
+    public Integer getIdMedico() {
         return idMedico;
     }
-    public void setIdMedico(Integer idMedico){
+
+    public void setIdMedico(Integer idMedico) {
         this.idMedico = idMedico;
-    } 
+    }
+        
 }
