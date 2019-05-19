@@ -62,7 +62,7 @@ public class Paciente implements java.io.Serializable{
     
     @NotNull
     @Column(name= "sexo", nullable = false)
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     private String sexo;
     
     @NotNull
@@ -77,7 +77,7 @@ public class Paciente implements java.io.Serializable{
     
      
     
-    @OneToMany(mappedBy = "paciente_id_paciente",
+    @OneToMany(mappedBy = "Paciente",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -89,7 +89,7 @@ public class Paciente implements java.io.Serializable{
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-        name = "idObraSocial",
+        name = "ObraSocial_idObraSocial", referencedColumnName = "idObraSocial",
             nullable = false)
     private ObraSocial obraSocial;
     
@@ -135,7 +135,7 @@ public class Paciente implements java.io.Serializable{
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getSexo() {
+   public String getSexo() {
         return sexo;
     }
 

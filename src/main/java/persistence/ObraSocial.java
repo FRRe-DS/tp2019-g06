@@ -5,6 +5,8 @@
  */
 package persistence;
 
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 /**
@@ -43,9 +46,15 @@ public class ObraSocial implements java.io.Serializable{
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-        name = "idPaciente",
+        name = "Paciente_idPaciente", referencedColumnName = "idPaciente",
             nullable = false)
     private Paciente paciente;
+    
+    @OneToMany(mappedBy = "ObraSocial", 
+           fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<Medico> medicos;
     
     //Getters and Setters
 
@@ -80,7 +89,14 @@ public class ObraSocial implements java.io.Serializable{
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
-    
 
+    public Set<Medico> getMedicos() {
+        return medicos;
+    }
+
+    public void setMedicos(Set<Medico> medicos) {
+        this.medicos = medicos;
+    }
+    
         
 }

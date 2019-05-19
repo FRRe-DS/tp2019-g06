@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,16 +48,20 @@ public class Turno implements java.io.Serializable {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-        name = "id_paciente",
-            nullable = false)
+        name = "Paciente_idPaciente", referencedColumnName = "idPaciente", nullable = false)
     private Paciente paciente;
     
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-        name = "piso",
-            nullable = false)
+    @JoinColumns( {
+        @JoinColumn( name = "Consultorio_piso", referencedColumnName = "piso",nullable = false),
+        @JoinColumn( name = "Consultorio_numero", referencedColumnName = "numero", nullable = false )})
     private Consultorio consultorio;
+         
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn( name = "Medico_idMedico", referencedColumnName = "idMedico", nullable = false)
+    private Medico medico;
     
     //Getters and Setters
 
@@ -100,6 +105,22 @@ public class Turno implements java.io.Serializable {
         this.paciente = paciente;
     }
 
+    public Boolean getObraSocial() {
+        return obraSocial;
+    }
+
+    public void setObraSocial(Boolean obraSocial) {
+        this.obraSocial = obraSocial;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
     public Consultorio getConsultorio() {
         return consultorio;
     }
@@ -108,14 +129,6 @@ public class Turno implements java.io.Serializable {
         this.consultorio = consultorio;
     }
 
-    public Boolean getObraSocial() {
-        return obraSocial;
-    }
-
-    public void setObraSocial(Boolean obraSocial) {
-        this.obraSocial = obraSocial;
-    }
-    
-    
+      
    
 }

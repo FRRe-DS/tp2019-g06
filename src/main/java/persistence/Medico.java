@@ -5,14 +5,15 @@
  */
 package persistence;
 
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -46,7 +47,7 @@ public class Medico implements java.io.Serializable {
     
     @NotNull
     @Column(name = "sexo", nullable = false)
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     private String sexo;
     
     @NotNull
@@ -61,13 +62,22 @@ public class Medico implements java.io.Serializable {
     @Column(name = "matricula", nullable = false)
     private Integer matricula;
     
-    
+    @NotNull
+    @Column(name = "especialidad", nullable = false)
+    private String especialidad;
+        
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-        name = "idObraSocial",
+        name = "ObraSocial_idObraSocial", referencedColumnName = "idObraSocial",
             nullable = false)
     private ObraSocial obraSocial;
-  
+            
+    @OneToMany(mappedBy = "Medico", 
+           fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<Turno> turnos;
+      
     //Getters and Setters
 
     public Integer getIdMedico() {
@@ -141,5 +151,21 @@ public class Medico implements java.io.Serializable {
     public void setObraSocial(ObraSocial obraSocial) {
         this.obraSocial = obraSocial;
     }
-    
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public Set<Turno> getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(Set<Turno> turnos) {
+        this.turnos = turnos;
+    }
+      
 }

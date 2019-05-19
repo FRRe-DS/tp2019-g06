@@ -4,7 +4,6 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>persistence.Turno</class>
     <class>persistence.Medico</class>
-    <class>persistence.Especialidad</class>
     <class>persistence.Paciente</class>
     <class>persistence.ObraSocial</class>
     <class>persistence.Consultorio</class>

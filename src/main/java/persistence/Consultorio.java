@@ -18,10 +18,11 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Consultorio implements java.io.Serializable {
-   @EmbeddedId
+  
+    @EmbeddedId
    private ClaveConsultorio clave;
    
-   @OneToMany(mappedBy = "idTurno", 
+   @OneToMany(mappedBy = "Consultorio", 
            fetch = FetchType.LAZY,
            cascade = CascadeType.ALL,
            orphanRemoval = true)
