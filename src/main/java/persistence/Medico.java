@@ -5,6 +5,9 @@
  */
 package persistence;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,6 +30,7 @@ import javax.validation.constraints.Size;
 public class Medico implements java.io.Serializable {
     
     @Id
+    @Column(name = "idMedico")
     private Integer idMedico;
     
     @NotNull
@@ -66,17 +70,37 @@ public class Medico implements java.io.Serializable {
     @Column(name = "especialidad", nullable = false)
     private String especialidad;
         
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(
         name = "ObraSocial_idObraSocial", referencedColumnName = "idObraSocial",
             nullable = false)
     private ObraSocial obraSocial;
             
     @OneToMany(mappedBy = "Medico", 
-           fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private Set<Turno> turnos;
+    private List<Turno> turnos;
+    public List getTurnos(){ 
+        return turnos;
+    }
+    
+    public Medico(){
+        
+    }
+    
+    public Medico (int idM, String nomb, String ap, int ingdni, String ingsexo, String estCivil, String direc, int matric, String espec, ObraSocial obra) {
+        idMedico = idM;
+        nombre = nomb;
+        apellido = ap;
+        dni = ingdni;
+        sexo = ingsexo;
+        estadoCivil = estCivil;
+        direccion = direc;
+        matricula = matric;
+        especialidad = espec;
+        obraSocial = obra;
+        
+    }
       
     //Getters and Setters
 
@@ -160,12 +184,41 @@ public class Medico implements java.io.Serializable {
         this.especialidad = especialidad;
     }
 
-    public Set<Turno> getTurnos() {
-        return turnos;
-    }
-
-    public void setTurnos(Set<Turno> turnos) {
+    
+    public void setTurnos(List<Turno> turnos) {
         this.turnos = turnos;
+    }
+    
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((idMedico == null) ? 0 : idMedico.hashCode());
+        return result;
+    }    
+   
+    @Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final Medico other = (Medico) obj;
+		if (idMedico == null) {
+			if (other.idMedico != null)
+				return false;
+		} else if (!idMedico.equals(other.idMedico))
+			return false;
+		return true;
+     
+    }
+    
+    @Override
+    public String toString() {
+        return "Medico [id = " + idMedico + ", nombre=" + nombre + ", apellido=" + apellido +", dni= " + dni +", sexo= " + sexo +", estadoCivil= " + estadoCivil +", direccion= " + direccion +", matricula= " + matricula +", especialidad= " + especialidad +"]";
     }
       
 }

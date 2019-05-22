@@ -6,13 +6,15 @@
     <class>persistence.Medico</class>
     <class>persistence.Paciente</class>
     <class>persistence.ObraSocial</class>
-    <class>persistence.Consultorio</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/turnos?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="flor21"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+      <property name="hibernate.hbm2ddl.auto" value="create" />
     </properties>
   </persistence-unit>
 </persistence>

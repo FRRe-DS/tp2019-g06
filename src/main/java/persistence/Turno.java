@@ -5,8 +5,13 @@
  */
 package persistence;
 
+import com.google.protobuf.TextFormat;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import persistence.Paciente;
 
 
 /**
@@ -26,12 +32,13 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Turno implements java.io.Serializable {
     @Id
+    @Column(name = "idTurno")
     private Integer idTurno;
     
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha", nullable = false)
-    private Date fecha;
+    private java.util.Date fecha;
     
     @NotNull
     @Column(name = "hora", nullable = false)
@@ -46,23 +53,61 @@ public class Turno implements java.io.Serializable {
     private Boolean obraSocial;
     
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(
         name = "Paciente_idPaciente", referencedColumnName = "idPaciente", nullable = false)
     private Paciente paciente;
     
+            
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumns( {
-        @JoinColumn( name = "Consultorio_piso", referencedColumnName = "piso",nullable = false),
-        @JoinColumn( name = "Consultorio_numero", referencedColumnName = "numero", nullable = false )})
-    private Consultorio consultorio;
-         
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn( name = "Medico_idMedico", referencedColumnName = "idMedico", nullable = false)
     private Medico medico;
     
+    public Turno(){
+    
+    }
+    
+    public Turno (int idT, String fech, String hora1, String motConsulta, Boolean obraSoc, Paciente pac, Medico med) throws TextFormat.ParseException {
+        
+        idTurno = idT;
+        try{
+          this.setFecha(fech);  
+          
+        }
+        catch( java.text.ParseException e){
+           System.out.println(e);
+        }
+        try{
+          this.setHora(hora1);  
+          
+        }
+        catch( java.text.ParseException e1){
+           System.out.println(e1);
+        }
+        motivoConsulta = motConsulta;
+        obraSocial = obraSoc;
+        paciente = pac;
+        medico = med;
+        
+    }
+    
+    public void setFecha(String fecha) throws TextFormat.ParseException, java.text.ParseException {
+        
+        java.util.Date sqldate;
+        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+	Date imputDate = dateFormat.parse(fecha);
+	sqldate = new java.util.Date(imputDate.getTime());
+        this.fecha = sqldate;
+    }
+    
+    public void setHora(String hora) throws ParseException {
+        java.sql.Time sqltime;
+        DateFormat timeFormat = new SimpleDateFormat("hh:mm");
+        Date imputTime = timeFormat.parse(hora);
+        sqltime = new java.sql.Time(imputTime.getTime());
+        this.hora = sqltime;
+    }
     //Getters and Setters
 
     public Integer getIdTurno() {
@@ -77,7 +122,7 @@ public class Turno implements java.io.Serializable {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(java.sql.Date fecha) {
         this.fecha = fecha;
     }
 
@@ -121,14 +166,37 @@ public class Turno implements java.io.Serializable {
         this.medico = medico;
     }
 
-    public Consultorio getConsultorio() {
-        return consultorio;
-    }
-
-    public void setConsultorio(Consultorio consultorio) {
-        this.consultorio = consultorio;
-    }
-
-      
+    
+   @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((idTurno == null) ? 0 : idTurno.hashCode());
+        return result;
+    }    
    
+    @Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final Turno other = (Turno) obj;
+		if (idTurno == null) {
+			if (other.idTurno != null)
+				return false;
+		} else if (!idTurno.equals(other.idTurno))
+			return false;
+		return true;
+     
+    }
+        
+    @Override
+    public String toString() {
+        return "Turno [id = " + idTurno + ", fecha=" + fecha + ", hora=" + hora +", motivoConsulta= " + motivoConsulta +", obraSocial= " + obraSocial +"]";
+    }
+      
 }

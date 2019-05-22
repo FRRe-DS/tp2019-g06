@@ -5,6 +5,7 @@
  */
 package persistence;
 
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,6 +30,7 @@ public class ObraSocial implements java.io.Serializable{
    
     @Id
     @GeneratedValue
+    @Column(name = "idObraSocial")
     private Integer idObraSocial;
     
     @NotNull
@@ -43,18 +45,28 @@ public class ObraSocial implements java.io.Serializable{
     private String direccion;
     
     
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-        name = "Paciente_idPaciente", referencedColumnName = "idPaciente",
-            nullable = false)
-    private Paciente paciente;
+    
+    @OneToMany(mappedBy = "ObraSocial",
+    cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Paciente> paciente;
     
     @OneToMany(mappedBy = "ObraSocial", 
-           fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private Set<Medico> medicos;
+    private List<Medico> medicos;
+
+    public ObraSocial(int idS, String nomb, String direc) {
+
+        idObraSocial = idS;
+        nombre = nomb;
+        direccion = direc;   
+    
+    }
+    
+    public ObraSocial(){
+        
+    }
     
     //Getters and Setters
 
@@ -82,21 +94,55 @@ public class ObraSocial implements java.io.Serializable{
         this.direccion = direccion;
     }
 
-    public Paciente getPaciente() {
+    public List<Paciente> getPaciente() {
         return paciente;
     }
 
-    public void setPaciente(Paciente paciente) {
+    public void setPaciente(List<Paciente> paciente) {
         this.paciente = paciente;
     }
 
-    public Set<Medico> getMedicos() {
+    public List<Medico> getMedicos() {
         return medicos;
     }
 
-    public void setMedicos(Set<Medico> medicos) {
+    public void setMedicos(List<Medico> medicos) {
         this.medicos = medicos;
     }
+
     
+    
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((idObraSocial == null) ? 0 : idObraSocial.hashCode());
+        return result;
+    }    
+   
+    @Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final ObraSocial other = (ObraSocial) obj;
+		if (idObraSocial == null) {
+			if (other.idObraSocial != null)
+				return false;
+		} else if (!idObraSocial.equals(other.idObraSocial))
+			return false;
+		return true;
+     
+    }
+    
+    @Override
+    public String toString() {
+        return "ObraSocial [id = " + idObraSocial + ", nombre=" + nombre + ", direccion= " + direccion +"]";
+    }
+        
         
 }
