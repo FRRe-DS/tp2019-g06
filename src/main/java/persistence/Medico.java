@@ -35,15 +35,15 @@ public class Medico implements java.io.Serializable {
     
     @NotNull
     @Size(min= 1, max=45)
-    @Column(name= "nombre", nullable = false)
-    @Pattern(regexp = "[a-z \\s A-Z ñ Ñ]{1,45}",message = "El nombre no puede contener caracteres no válidos")
-    private String nombre;
-    
-    @NotNull
-    @Size(min= 1, max=45)
     @Column(name= "apellido", nullable = false)
     @Pattern(regexp = "[a-z \\s A-Z ñ Ñ]{1,45}",message = "El nombre no puede contener caracteres no válidos")
     private String apellido;
+    
+    @NotNull
+    @Size(min= 1, max=45)
+    @Column(name= "nombre", nullable = false)
+    @Pattern(regexp = "[a-z \\s A-Z ñ Ñ]{1,45}",message = "El nombre no puede contener caracteres no válidos")
+    private String nombre;
     
     @NotNull
     @Column(name = "dni", nullable = false)
@@ -88,10 +88,10 @@ public class Medico implements java.io.Serializable {
         
     }
     
-    public Medico (int idM, String nomb, String ap, int ingdni, String ingsexo, String estCivil, String direc, int matric, String espec, ObraSocial obra) {
+    public Medico (int idM, String ap, String nomb, int ingdni, String ingsexo, String estCivil, String direc, int matric, String espec, ObraSocial obra) {
         idMedico = idM;
-        nombre = nomb;
         apellido = ap;
+        nombre = nomb;
         dni = ingdni;
         sexo = ingsexo;
         estadoCivil = estCivil;
