@@ -30,6 +30,9 @@ import javax.validation.constraints.Size;
 public class Medico implements java.io.Serializable {
     
     @Id
+   /*Se le podria agregar:
+    @GenerateValue(strategy=GenerationType.IDENTITY)
+    PARA QUE TOME EL ID COMO AUTOINCREMENT*/
     @Column(name = "idMedico")
     private Integer idMedico;
     

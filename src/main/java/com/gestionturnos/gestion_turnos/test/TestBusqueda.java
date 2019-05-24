@@ -72,7 +72,7 @@ public class TestBusqueda {
 }
 */      //TURNO
         try{
-           Turno turno = TurnoDAO.getById(121);
+           Turno turno = TurnoDAO.getById(1);
            System.out.println("Apellido:"+ turno.getPaciente().getApellido()+", Nombre:"+ turno.getFecha());
            System.out.println("Done");
            
