@@ -6,6 +6,7 @@
     <class>persistence.Medico</class>
     <class>persistence.Paciente</class>
     <class>persistence.ObraSocial</class>
+    
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/turnos?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
