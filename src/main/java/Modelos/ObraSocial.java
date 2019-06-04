@@ -32,7 +32,6 @@ public class ObraSocial implements java.io.Serializable{
     private String nombre;
     
     @NotNull
-    @Min(1)
     @Column(name = "direccion", nullable = false)
     private String direccion;
     
@@ -52,12 +51,10 @@ public class ObraSocial implements java.io.Serializable{
 
         idObraSocial = idS;
         nombre = nomb;
-        direccion = direc;   
-    
+        direccion = direc;       
     }
     
-    public ObraSocial(){
-        
+    public ObraSocial(){        
     }
     
     //Getters and Setters

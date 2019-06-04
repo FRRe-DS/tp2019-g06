@@ -61,7 +61,6 @@ public class Paciente implements java.io.Serializable{
     private String sexo;
     
     @NotNull
-    @Min(1)
     @Column(name= "direccion", nullable = false)
     private String direccion;
     
