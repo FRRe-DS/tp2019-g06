@@ -28,7 +28,12 @@ import org.springframework.expression.ParseException;
  */
 @Entity
 public class Paciente implements java.io.Serializable{ 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Column(name = "idPaciente")
     private Integer idPaciente;
    

@@ -1,33 +1,25 @@
 package com.gestionturnos.gestion_turnos.gestionturnos.controllers;
 
 import java.util.Optional;
-import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.gestionturnos.gestion_turnos.gestionturnos.dao.MedicoRepository;
-import com.gestionturnos.gestion_turnos.gestionturnos.dao.ObraSocialRepository;
-import com.gestionturnos.gestion_turnos.gestionturnos.dao.PacienteRepository;
-import com.gestionturnos.gestion_turnos.gestionturnos.dao.TurnoRepository;
-import com.gestionturnos.gestion_turnos.gestionturnos.model.Medico;
-import com.gestionturnos.gestion_turnos.gestionturnos.model.ObraSocial;
-import com.gestionturnos.gestion_turnos.gestionturnos.model.Paciente;
-import com.gestionturnos.gestion_turnos.gestionturnos.model.Turno;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import com.gestionturnos.gestion_turnos.gestionturnos.dao.ObraSocialRepository;
+import com.gestionturnos.gestion_turnos.gestionturnos.model.ObraSocial;
+
 /**
  * 
  * @author flor

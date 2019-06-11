@@ -25,7 +25,12 @@ import com.gestionturnos.gestion_turnos.gestionturnos.model.Paciente;
  */
 @Entity
 public class Turno implements java.io.Serializable {
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 9066465383169529803L;
+
+	@Id
     @Column(name = "idTurno")
     private Integer idTurno;
     

@@ -1,14 +1,11 @@
 package com.gestionturnos.gestion_turnos.gestionturnos.model;
 
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +22,12 @@ import javax.validation.constraints.Size;
 @Entity
 public class Medico implements java.io.Serializable {
     
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
    /*Se le podria agregar:
     @GenerateValue(strategy=GenerationType.IDENTITY)
     PARA QUE TOME EL ID COMO AUTOINCREMENT*/
@@ -79,7 +81,8 @@ public class Medico implements java.io.Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Turno> turnos;
-    public List getTurnos(){ 
+    
+    public List<Turno> getTurnos(){ 
         return turnos;
     }
     
