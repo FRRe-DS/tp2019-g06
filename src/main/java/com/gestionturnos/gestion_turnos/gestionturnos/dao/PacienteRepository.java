@@ -1,10 +1,10 @@
-package DAO;
-
-import Modelos.ObraSocial;
-import Modelos.Paciente;
-import Modelos.Turno;
+package com.gestionturnos.gestion_turnos.gestionturnos.dao;
 
 import org.springframework.stereotype.Repository;
+
+import com.gestionturnos.gestion_turnos.gestionturnos.model.ObraSocial;
+import com.gestionturnos.gestion_turnos.gestionturnos.model.Paciente;
+import com.gestionturnos.gestion_turnos.gestionturnos.model.Turno;
 
 import java.util.Optional;
 import java.util.Set;

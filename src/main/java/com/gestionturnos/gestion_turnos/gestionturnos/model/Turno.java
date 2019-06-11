@@ -1,4 +1,4 @@
-package Modelos;
+package com.gestionturnos.gestion_turnos.gestionturnos.model;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -13,9 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import Modelos.Paciente;
 
 import org.springframework.expression.ParseException;
+
+import com.gestionturnos.gestion_turnos.gestionturnos.model.Paciente;
 
 /**
  * 

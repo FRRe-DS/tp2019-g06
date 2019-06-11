@@ -1,4 +1,4 @@
-package Modelos;
+package com.gestionturnos.gestion_turnos.gestionturnos.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

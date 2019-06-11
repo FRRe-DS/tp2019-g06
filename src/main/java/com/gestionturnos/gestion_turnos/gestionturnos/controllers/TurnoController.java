@@ -1,4 +1,4 @@
-package Controlador;
+package com.gestionturnos.gestion_turnos.gestionturnos.controllers;
 
 import java.util.Optional;
 import java.util.Set;
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import DAO.MedicoRepository;
-import DAO.PacienteRepository;
-import DAO.TurnoRepository;
-import Modelos.Medico;
-import Modelos.Paciente;
-import Modelos.Turno;
+import com.gestionturnos.gestion_turnos.gestionturnos.dao.MedicoRepository;
+import com.gestionturnos.gestion_turnos.gestionturnos.dao.PacienteRepository;
+import com.gestionturnos.gestion_turnos.gestionturnos.dao.TurnoRepository;
+import com.gestionturnos.gestion_turnos.gestionturnos.model.Medico;
+import com.gestionturnos.gestion_turnos.gestionturnos.model.Paciente;
+import com.gestionturnos.gestion_turnos.gestionturnos.model.Turno;
 /**
  * 
  * @author flor
