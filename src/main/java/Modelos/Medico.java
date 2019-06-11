@@ -72,7 +72,7 @@ public class Medico implements java.io.Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(
         name = "ObraSocial_idObraSocial", referencedColumnName = "idObraSocial",
-            nullable = false)
+            nullable = true)
     private ObraSocial obraSocial;
             
     @OneToMany(mappedBy = "medico", 
