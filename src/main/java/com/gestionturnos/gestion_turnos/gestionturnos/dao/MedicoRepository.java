@@ -24,5 +24,9 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 	//Set<Medico> findByTurno(Turno turnos);
 	
 	Optional<Medico> findByMatricula(Integer matricula);
+
+	Set<Medico> findByEspecialidadAndObraSocial(String especialidad, ObraSocial obraSocial);
+
+	Set<Medico> findByEspecialidad(String especialidad);
 		
 }

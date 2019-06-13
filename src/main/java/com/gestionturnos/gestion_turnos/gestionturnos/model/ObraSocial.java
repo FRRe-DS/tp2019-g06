@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 
  * @author flor
@@ -19,14 +21,12 @@ import javax.validation.constraints.Size;
  */
 @Entity
 public class ObraSocial implements java.io.Serializable{
-   
-    /**
+   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
-	@Id
-    @GeneratedValue
+    private static final long serialVersionUID = 1L;
+    
+    @Id
     @Column(name = "idObraSocial")
     private Integer idObraSocial;
     
@@ -41,15 +41,16 @@ public class ObraSocial implements java.io.Serializable{
     private String direccion;
     
     
-    
+    @JsonIgnore 
     @OneToMany(mappedBy = "obraSocial",
     cascade = CascadeType.ALL,
-            orphanRemoval = true)
+            orphanRemoval = true)           
     private List<Paciente> paciente;
     
+    @JsonIgnore 
     @OneToMany(mappedBy = "obraSocial", 
             cascade = CascadeType.ALL,
-            orphanRemoval = true)
+            orphanRemoval = true)    
     private List<Medico> medicos;
 
     public ObraSocial(int idS, String nomb, String direc) {

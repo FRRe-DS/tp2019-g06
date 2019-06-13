@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +19,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.expression.ParseException;
 
@@ -33,7 +37,7 @@ public class Paciente implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @Column(name = "idPaciente")
     private Integer idPaciente;
    
@@ -75,20 +79,20 @@ public class Paciente implements java.io.Serializable{
     private Integer telefono;
     
      
-    
+    @JsonIgnore
     @OneToMany(mappedBy = "paciente",
             cascade = CascadeType.ALL,
-            orphanRemoval = true)
+            orphanRemoval = true)    
     private List<Turno> turnos;
+
     public List<Turno> getTurnos(){ 
         return turnos;
     }
     
-    
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
         name = "ObraSocial_idObraSocial", referencedColumnName = "idObraSocial", 
-            nullable = false)
+            nullable = true)
     private ObraSocial obraSocial;
     
     public Paciente(){

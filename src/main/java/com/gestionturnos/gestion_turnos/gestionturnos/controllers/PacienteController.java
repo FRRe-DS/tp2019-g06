@@ -34,7 +34,7 @@ public class PacienteController {
 	
 	@Autowired
 	private PacienteRepository repository;
-		
+			
 	@Autowired
 	private ObraSocialRepository obraSocialRepository;
 	
@@ -68,6 +68,12 @@ public class PacienteController {
 	
 	@PostMapping()
 	public ResponseEntity<Paciente> create(@Valid @RequestBody Paciente createRequest) {
+		//System.out.println(createRequest.getObraSocial());
+		var obra = createRequest.getObraSocial();
+		var result = obraSocialRepository.findById(obra.getIdObraSocial());
+		if (result.isEmpty()){
+			createRequest.setObraSocial(null);
+		}
 		return ResponseEntity.ok(repository.save(createRequest));
 	}
 	

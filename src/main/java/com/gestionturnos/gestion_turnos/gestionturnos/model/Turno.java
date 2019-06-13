@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,8 +30,8 @@ public class Turno implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 9066465383169529803L;
-
-	@Id
+    
+    @Id
     @Column(name = "idTurno")
     private Integer idTurno;
     
@@ -51,15 +52,13 @@ public class Turno implements java.io.Serializable {
     @Column(name ="obra_social")
     private Boolean obraSocial;
     
-    @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
         name = "Paciente_idPaciente", referencedColumnName = "idPaciente", nullable = false)
     private Paciente paciente;
     
             
-    @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn( name = "Medico_idMedico", referencedColumnName = "idMedico", nullable = false)
     private Medico medico;
     

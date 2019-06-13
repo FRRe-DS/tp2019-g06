@@ -1,18 +1,22 @@
 package com.gestionturnos.gestion_turnos.gestionturnos.model;
 
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 
@@ -21,16 +25,12 @@ import javax.validation.constraints.Size;
  */
 @Entity
 public class Medico implements java.io.Serializable {
-    
-    /**
+     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
-	@Id
-   /*Se le podria agregar:
-    @GenerateValue(strategy=GenerationType.IDENTITY)
-    PARA QUE TOME EL ID COMO AUTOINCREMENT*/
+    private static final long serialVersionUID = 1L;
+    
+    @Id
     @Column(name = "idMedico")
     private Integer idMedico;
     
@@ -71,15 +71,17 @@ public class Medico implements java.io.Serializable {
     @Column(name = "especialidad", nullable = false)
     private String especialidad;
         
-    @ManyToOne(cascade = CascadeType.PERSIST)
+   // @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
         name = "ObraSocial_idObraSocial", referencedColumnName = "idObraSocial",
             nullable = true)
     private ObraSocial obraSocial;
-            
+     
+    @JsonIgnore 
     @OneToMany(mappedBy = "medico", 
             cascade = CascadeType.ALL,
-            orphanRemoval = true)
+            orphanRemoval = true) 
     private List<Turno> turnos;
     
     public List<Turno> getTurnos(){ 
