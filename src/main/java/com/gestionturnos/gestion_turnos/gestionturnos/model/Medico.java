@@ -8,10 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -52,7 +51,6 @@ public class Medico implements java.io.Serializable {
     
     @NotNull
     @Column(name = "sexo", nullable = false)
-    //@Enumerated(EnumType.STRING)
     private String sexo;
     
     @NotNull
@@ -70,24 +68,23 @@ public class Medico implements java.io.Serializable {
     @NotNull
     @Column(name = "especialidad", nullable = false)
     private String especialidad;
-        
-   // @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(
-        name = "ObraSocial_idObraSocial", referencedColumnName = "idObraSocial",
-            nullable = true)
-    private ObraSocial obraSocial;
+   /*     
+   @JsonIgnore
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(
+      name = "ObraSocial_idObraSocial", referencedColumnName = "idObraSocial",
+          nullable = true)
+  private ObraSocial obraSocial;
      
     @JsonIgnore 
     @OneToMany(mappedBy = "medico", 
-            cascade = CascadeType.ALL,
-            orphanRemoval = true) 
-    private List<Turno> turnos;
+            cascade = CascadeType.ALL) 
+    private List<Turno> turnos; 
     
     public List<Turno> getTurnos(){ 
         return turnos;
     }
-    
+    */
     public Medico(){
         
     }
@@ -102,8 +99,7 @@ public class Medico implements java.io.Serializable {
         direccion = direc;
         matricula = matric;
         especialidad = espec;
-        obraSocial = obra;
-        
+       // obraSocial =  obra;
     }
       
     //Getters and Setters
@@ -171,15 +167,15 @@ public class Medico implements java.io.Serializable {
     public void setMatricula(Integer matricula) {
         this.matricula = matricula;
     }
-
+/*
     public ObraSocial getObraSocial() {
-        return obraSocial;
+        return  obraSocial;
     }
 
     public void setObraSocial(ObraSocial obraSocial) {
         this.obraSocial = obraSocial;
     }
-
+*/
     public String getEspecialidad() {
         return especialidad;
     }
@@ -187,12 +183,12 @@ public class Medico implements java.io.Serializable {
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
-
+/*
     
     public void setTurnos(List<Turno> turnos) {
         this.turnos = turnos;
     }
-    
+   */ 
     @Override
     public int hashCode()
     {

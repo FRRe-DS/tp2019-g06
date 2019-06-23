@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -40,19 +43,17 @@ public class ObraSocial implements java.io.Serializable{
     @Column(name = "direccion", nullable = false)
     private String direccion;
     
-    
     @JsonIgnore 
     @OneToMany(mappedBy = "obraSocial",
     cascade = CascadeType.ALL,
             orphanRemoval = true)           
     private List<Paciente> paciente;
-    
+    /*
     @JsonIgnore 
     @OneToMany(mappedBy = "obraSocial", 
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)    
-    private List<Medico> medicos;
-
+            cascade = CascadeType.ALL)    
+    private List<MedicoObraSocial> medicoObraSociales; 
+   */
     public ObraSocial(int idS, String nomb, String direc) {
 
         idObraSocial = idS;
@@ -88,24 +89,24 @@ public class ObraSocial implements java.io.Serializable{
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
-    public List<Paciente> getPaciente() {
-        return paciente;
+/*
+    public List<PacienteObraSocial> getPacienteObraSocial() {
+        return pacientesObraSocial;
     }
 
-    public void setPaciente(List<Paciente> paciente) {
-        this.paciente = paciente;
+    public void setPacienteObraSocial(List<PacienteObraSocial> pacientesObraSocial) {
+        this.pacientesObraSocial = pacientesObraSocial;
     }
 
-    public List<Medico> getMedicos() {
-        return medicos;
+    public List<MedicoObraSocial> getMedicoObraSocial() {
+        return medicoObraSociales;
     }
 
-    public void setMedicos(List<Medico> medicos) {
-        this.medicos = medicos;
+    public void setMedicoObraSocial(List<MedicoObraSocial> medicoObraSociales) {
+        this.medicoObraSociales = medicoObraSociales;
     }
 
-    
+    */
     
     @Override
     public int hashCode()

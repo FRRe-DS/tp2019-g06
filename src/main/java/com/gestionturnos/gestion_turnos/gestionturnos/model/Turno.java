@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,7 +18,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.expression.ParseException;
 
-import com.gestionturnos.gestion_turnos.gestionturnos.model.Paciente;
+import com.gestionturnos.gestion_turnos.gestionturnos.model.MedicoObraSocial;
 
 /**
  * 
@@ -51,22 +52,32 @@ public class Turno implements java.io.Serializable {
     @NotNull
     @Column(name ="obra_social")
     private Boolean obraSocial;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
         name = "Paciente_idPaciente", referencedColumnName = "idPaciente", nullable = false)
     private Paciente paciente;
-    
-            
+
+    // Relacion medico-obra social    
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn( name = "Medico_idMedico", referencedColumnName = "idMedico", nullable = false)
-    private Medico medico;
+    @JoinColumns({
+        @JoinColumn(referencedColumnName = "idMedico"),
+        @JoinColumn(referencedColumnName = "idObraSocial")
+    })
+    private MedicoObraSocial medicoObraSocial; 
+
+/*
     
-    public Turno(){
-    
+    // Relacion paciente-obra social
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+        name = "PacienteObraSocial", referencedColumnName = "ClavePacienteObraSocial", nullable = false)
+    private PacienteObraSocial pacienteObraSocial;
+    */
+    public Turno(){    
     }
     
-    public Turno (int idT, String fech, String hora1, String motConsulta, Boolean obraSoc, Paciente pac, Medico med) throws ParseException {
+    public Turno (int idT, String fech, String hora1, String motConsulta, Boolean obraSoc, MedicoObraSocial medicoObra, Paciente pacienteObra) throws ParseException {
         
         idTurno = idT;
         try{
@@ -84,9 +95,10 @@ public class Turno implements java.io.Serializable {
            System.out.println(e1);
         }
         motivoConsulta = motConsulta;
-        obraSocial = obraSoc;
-        paciente = pac;
-        medico = med;
+        obraSocial = obraSoc;/*
+        medicoObraSocial = medicoObra;;*/
+        paciente = pacienteObra;
+        
         
     }
     
@@ -140,14 +152,6 @@ public class Turno implements java.io.Serializable {
         this.motivoConsulta = motivoConsulta;
     }
 
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
-    }
-
     public Boolean getObraSocial() {
         return obraSocial;
     }
@@ -155,16 +159,24 @@ public class Turno implements java.io.Serializable {
     public void setObraSocial(Boolean obraSocial) {
         this.obraSocial = obraSocial;
     }
-
-    public Medico getMedico() {
-        return medico;
+/*
+    public MedicoObraSocial getMedicoObraSocial() {
+        return medicoObraSocial;
     }
 
-    public void setMedico(Medico medico) {
-        this.medico = medico;
+    public void setMedicoObraSocial(MedicoObraSocial medicoObraSocial) {
+        this.medicoObraSocial = medicoObraSocial;
     }
 
-    
+    public PacienteObraSocial getPacienteObraSocial() {
+        return pacienteObraSocial;
+    }
+
+    public void setPacienteObraSocial(PacienteObraSocial pacienteObraSocial) {
+        this.pacienteObraSocial = pacienteObraSocial;
+    }
+
+    */
    @Override
     public int hashCode()
     {

@@ -69,44 +69,58 @@ public class TurnoController {
 		Set<Turno> ret = repository.findByPaciente(paciente);
 		return ResponseEntity.ok(ret);
 	}
-	
+	/*
 	@GetMapping("/medico/{idMedico}")
 	public ResponseEntity<Set<Turno>> findByMedico(@PathVariable Integer idMedico) {
 		Medico medico = medicoRepository.getOne(idMedico);
 		Set<Turno> ret = repository.findByMedico(medico);
 		return ResponseEntity.ok(ret);
-	}
+	}*/
 	
 	@PostMapping()
 	public ResponseEntity<Turno> create(@Valid @RequestBody Turno createRequest) {
-		var obraTurno = createRequest.getObraSocial();
+		/*var obraTurno = createRequest.getObraSocial(); //true or false
 		var paciente = createRequest.getPaciente();
 		var medico = createRequest.getMedico();
 				
-		var resultpacient = paciente.getObraSocial();
-		var idObraSocialPac = obraSocialRepository.findById(resultpacient.getIdObraSocial());
+		var resultpacient = paciente.getObraSocial(); 
+		var idObraSocialPac = obraSocialRepository.findById(resultpacient.getIdObraSocial()); //id paciente obraSocial
 
-		var resultmedic = medico.getObraSocial();
-		var idObraSocialMed = obraSocialRepository.findById(resultmedic.getIdObraSocial());
+		var resultmedic = medico.getObraSociales();
+		var idObraSocialMed = obraSocialRepository.findById(resultmedic.getIdObraSociales()); //id medico obraSocial
 
 		if (obraTurno == true){
 			if(idObraSocialMed.isEmpty() | idObraSocialPac.isEmpty()){
 				System.out.println("El medico o el paciente no tienen obra social");
 				return ResponseEntity.notFound().build();
+			}else{
+
+				var tur = medico.getTurnos();
+
+				if(idObraSocialMed == idObraSocialPac){
+					System.out.println("SON IGUALES LAS OBRAS SOCIALES DE idMed y idPac");
+				}else{
+					System.out.println("NOO SON IGUALES LAS OBRAS SOCIALES DE idMed y idPac");
+					System.out.println(tur);
+					return ResponseEntity.notFound().build();
+				}
 			}
-		}
+		}*/
+		/*var paciente = createRequest.getPaciente();
+		var medicos = createRequest.getMedico();
+
+		var resultpacient = paciente.getObraSocial();
+		 
+		var resultmedico = medicos.getObraSocial();
 		
-		/*if(turno == true & (resultpac.isEmpty())) {
-			//System.out.println("No existe obra social del paciente"); NO SE COMO HACER PARA QUE SALGA UN MENSAJE
+		if (resultmedico.contains(resultpacient) == false){
 			return ResponseEntity.notFound().build();
+ 
 		}
 
-		if(turno == true & (resultmed.isEmpty())) {
-			//System.out.println("No existe obra social del medico"); NO SE COMO HACER PARA QUE SALGA UN MENSAJE
-			return ResponseEntity.notFound().build();
-		}
-		*/
+			*/	
 		return ResponseEntity.ok(repository.save(createRequest));
+			
 	}
 	
 	@PutMapping()

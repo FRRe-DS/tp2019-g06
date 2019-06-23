@@ -19,13 +19,13 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 	
 	Optional<Medico> findById(Integer idMedico);
 	
-	Set<Medico> findByObraSocial(ObraSocial obraSocial);
+	//Set<Medico> findByObraSociales(ObraSocial obraSociales);
 	
 	//Set<Medico> findByTurno(Turno turnos);
 	
 	Optional<Medico> findByMatricula(Integer matricula);
 
-	Set<Medico> findByEspecialidadAndObraSocial(String especialidad, ObraSocial obraSocial);
+	//Set<Medico> findByEspecialidadAndObraSocial(String especialidad, ObraSocial obraSocial);
 
 	Set<Medico> findByEspecialidad(String especialidad);
 		

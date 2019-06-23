@@ -21,6 +21,6 @@ public interface TurnoRepository extends JpaRepository<Turno, Integer> {
 		
 	Set<Turno> findByPaciente(Paciente paciente);
 	
-	Set<Turno> findByMedico(Medico medico);
+	//Set<Turno> findByMedico(Medico medico);
 	
 }
