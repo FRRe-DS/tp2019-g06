@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import javax.sql.DataSource;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class RestConfiguration {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setPersistenceUnitName("dacs-pu");
 		em.setDataSource(defaultDataSource());
-		em.setPackagesToScan(new String[] { "com.gestionturnos.gestion_turnos.gestionturnos.controllers" });
+		em.setPackagesToScan(new String[] { "com.gestionturnos.gestion_turnos.gestionturnos.model" });
 
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setShowSql(true);
@@ -88,8 +89,8 @@ public class RestConfiguration {
 	}
 
 	@Bean
-	public ModelMap modelMapper() {
-		return new ModelMap();
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 
 	@Bean
