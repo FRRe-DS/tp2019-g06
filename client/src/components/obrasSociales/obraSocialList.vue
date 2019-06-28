@@ -5,7 +5,7 @@
     class="elevation-1"
   >
     <template v-slot:items="props">
-      <td>{{ props.item.id }}</td>
+   
       <td class="text-xs-right">{{ props.item.id_obra_social }}</td>
       <td class="text-xs-right">{{ props.item.nombre }}</td>
       <td class="text-xs-right">{{ props.item.direccion }}</td>
