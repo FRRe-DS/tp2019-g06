@@ -29,15 +29,15 @@ import com.gestionturnos.gestion_turnos.gestionturnos.model.Medico;
  *
  */
 @RestController
-@RequestMapping("/medico")
+@RequestMapping("api/medico")
 public class MedicoController {
-	
+
 	@Autowired
 	private MedicoRepository repository;
-	
-	//@Autowired
-	//private ObraSocialRepository obraSocialRepository;
-	
+
+	// @Autowired
+	// private ObraSocialRepository obraSocialRepository;
+
 	@GetMapping()
 	public Page<Medico> getPage(Pageable pageable) {
 		return repository.findAll(pageable);
@@ -45,13 +45,13 @@ public class MedicoController {
 
 	@GetMapping("/{idMedico}")
 	public ResponseEntity<Medico> findById(@PathVariable Integer idMedico) {
-		
+
 		Optional<Medico> opt = repository.findById(idMedico);
 		if (opt.isPresent())
 			return ResponseEntity.ok(opt.get());
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@GetMapping("/matricula/{matricula}")
 	public ResponseEntity<Medico> findByNroMatricula(@PathVariable Integer matricula) {
 		Optional<Medico> opt = repository.findByMatricula(matricula);
@@ -59,22 +59,24 @@ public class MedicoController {
 			return ResponseEntity.ok(opt.get());
 		return ResponseEntity.notFound().build();
 	}
-	
-//	@GetMapping("/obraSocial/{idObraSocial}")
-//	public ResponseEntity<Set<Medico>> findByObraSociales(@PathVariable Integer idObraSocial) {
-//		ObraSocial obraSocial = obraSocialRepository.getOne(idObraSocial);
-//		Set<Medico> ret = repository.findByObraSociales(obraSocial);
-//		return ResponseEntity.ok(ret);o
-//	}
+
+	// @GetMapping("/obraSocial/{idObraSocial}")
+	// public ResponseEntity<Set<Medico>> findByObraSociales(@PathVariable Integer
+	// idObraSocial) {
+	// ObraSocial obraSocial = obraSocialRepository.getOne(idObraSocial);
+	// Set<Medico> ret = repository.findByObraSociales(obraSocial);
+	// return ResponseEntity.ok(ret);o
+	// }
 	/*
-	@GetMapping("/especialidad/{especialidad}/obraSocial/{idObraSocial}")
-	public ResponseEntity<Set<Medico>> findByEspecialidadAndObraSocial(@PathVariable String especialidad,
-	@PathVariable Integer idObraSocial) {
-		ObraSocial obraSocial = obraSocialRepository.getOne(idObraSocial);
-		Set<Medico> ret = repository.findByEspecialidadAndObraSocial(especialidad, obraSocial);
-		return  ResponseEntity.ok(ret);
-	}
-	*/
+	 * @GetMapping("/especialidad/{especialidad}/obraSocial/{idObraSocial}") public
+	 * ResponseEntity<Set<Medico>> findByEspecialidadAndObraSocial(@PathVariable
+	 * String especialidad,
+	 * 
+	 * @PathVariable Integer idObraSocial) { ObraSocial obraSocial =
+	 * obraSocialRepository.getOne(idObraSocial); Set<Medico> ret =
+	 * repository.findByEspecialidadAndObraSocial(especialidad, obraSocial); return
+	 * ResponseEntity.ok(ret); }
+	 */
 	/*
 	 * @GetMapping("/turno/{idTurno}") public ResponseEntity<Set<Medico>>
 	 * findByTurno(@PathVariable Integer idTurno) { Turno turno =
@@ -90,40 +92,38 @@ public class MedicoController {
 
 	@PostMapping()
 	public ResponseEntity<Medico> create(@Valid @RequestBody Medico createRequest) {
-		/*var medico = createRequest.getObraSociales();
-		var result = obraSocialRepository.findById(medico.getIdObraSociales());
-		if (result.isEmpty()){
-			createRequest.setObraSocial(null);
-		}
-		ObraSocial os = obraSocialRepository.getOne(20);
-	createRequest.getObraSociales().remove(createRequest.getObraSociales().get(0));
-		createRequest.getObraSociales().add(os);
-		System.out.println(createRequest.getObraSocial());
-		createRequest.getObraSocial().add(os);
-		Medico saved = repository.save(createRequest);
-		return ResponseEntity.ok(saved);*/
+		/*
+		 * var medico = createRequest.getObraSociales(); var result =
+		 * obraSocialRepository.findById(medico.getIdObraSociales()); if
+		 * (result.isEmpty()){ createRequest.setObraSocial(null); } ObraSocial os =
+		 * obraSocialRepository.getOne(20);
+		 * createRequest.getObraSociales().remove(createRequest.getObraSociales().get(0)
+		 * ); createRequest.getObraSociales().add(os);
+		 * System.out.println(createRequest.getObraSocial());
+		 * createRequest.getObraSocial().add(os); Medico saved =
+		 * repository.save(createRequest); return ResponseEntity.ok(saved);
+		 */
 		return ResponseEntity.ok(repository.save(createRequest));
 
 	}
-	
+
 	@PutMapping()
 	public ResponseEntity<Medico> update(@Valid @RequestBody Medico updateRequest) {
 		boolean exists = repository.existsById(updateRequest.getIdMedico());
 		if (exists) {
 			return ResponseEntity.ok(repository.save(updateRequest));
 		}
-		return ResponseEntity.notFound().build();		
+		return ResponseEntity.notFound().build();
 	}
-	
+
 	@DeleteMapping("/{idMedico}")
 	public ResponseEntity<?> delete(@PathVariable Integer idMedico) {
 		Optional<Medico> opt = repository.findById(idMedico);
 		if (opt.isPresent()) {
 			repository.delete(opt.get());
-			return ResponseEntity.ok().build();			
+			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
-}
-	
-	
+	}
+
 }
