@@ -1,4 +1,6 @@
 <template>
+  <div class="medicosList">
+    <espe-list v-on:mandar="getMedicos($event)"></espe-list>
   <v-data-table
     :headers="headers"
     :items="medicos"
@@ -15,13 +17,18 @@
     
   </v-data-table>
 
+  </div>
   
 </template>
 
 <script>
 import Medicos from "@/rest/medico";
+import especialidadesList from '@/components/especialidades/especialidadesList.vue';
 
 export default {
+  components: {
+    'espeList': especialidadesList,
+  },
   data () {
     return {
       headers: [
@@ -54,22 +61,23 @@ export default {
           value: 'numeroMatricula' 
         }
       ],
-      medicos: [],
-      especialidad:[],
+      medicos:[],
+     
     }
   },
 
   created: function() {
-    this.getMedicos();
+    this.getMedicos(buscarMedico);
   },
 
   methods: {
-    getMedicos: async function() {
+    getMedicos: async function(buscarMedico) {
       try {
-        const response = await Medicos.getRestApi().getAllMedicos();
+        const response = await Medicos.getRestApi().getMedicoEspecialidad(buscarMedico);
+        console.log("aca no panza nada");
         console.log("Response: ", response);
-        this.$data.medicos = response.data.content;
-        console.log("Medicos: ", this.$data.medicos);
+        this.$data.medicos = response.data;
+        console.log("Medicos: ",this.$data.medicos );
       } catch (error) {
         this.emitError(error);
       }
@@ -79,6 +87,11 @@ export default {
     },
     emitError: function(error) {
       this.$emit("showError", error);
+    },
+    buscarMedico: function(buscarMedico) {
+      this.$data.espeSelecionada = buscarMedico;
+       console.log('buscar por: ', this.$data.espeSelecionada);
+      console.log('buscar por: ', buscarMedico)
     }
   }
 }

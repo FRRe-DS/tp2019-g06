@@ -50,9 +50,9 @@ class Implementation implements MedicosRestApi {
         return result;
       });
   }
-  getMedicoEspecialidad(especialidad: string): AxiosPromise<Medico> {
+  getMedicoEspecialidad(especialidad: string): AxiosPromise<Medico[]> {
     return Axios.axiosInstance()
-      .get<Medico>(`/medico/especialidad/${especialidad}`)
+      .get<Medico[]>(`/medico/especialidad/${especialidad}`)
       .then(result => {
         return result;
       });

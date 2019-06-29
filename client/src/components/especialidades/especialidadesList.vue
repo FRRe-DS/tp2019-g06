@@ -5,9 +5,11 @@
       <v-flex xs12>
         <v-combobox
           v-model="select"
+          return-object
           :items="especialidad"
           chips
           label="Especialidad"
+          @input="mandar(select)"
         >
           <template v-slot:selection="data">
             <v-chip
@@ -16,6 +18,7 @@
               :disabled="data.disabled"
               class="v-chip--select-multi"
               @click.stop="data.parent.selectedIndex = data.index"
+              
               @input="data.parent.selectItem(data.item)"
             >
               <v-avatar class="accent white--text">
@@ -28,6 +31,7 @@
       </v-flex>
       
     </v-layout>
+    
   </v-container>
 
 </template>
@@ -36,17 +40,26 @@
 <script>
 import Medicos from "@/rest/medico";
 
+
+
 export default {
-  data () {
+
+
+    
+ data () {
+    
     return {
       select: 'Buscar',
       medicos: [],
       especialidad:[],
+      esp: '',
     }
   },
+    
 
   created: function() {
     this.getMedicosEspecialidad();
+ 
   },
 
   methods: {
@@ -71,6 +84,11 @@ export default {
     clearSelectedMedico: function() {
       this.$data.selected = null;
     },
+    mandar(item) {
+      console.log(item);
+       this.$emit('mandar', item)
+    },
+
     emitError: function(error) {
       this.$emit("showError", error);
     }
