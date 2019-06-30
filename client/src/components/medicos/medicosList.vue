@@ -1,21 +1,41 @@
 <template>
   <div class="medicosList">
+    <v-container fluid>
     <espe-list v-on:mandar="getMedicos($event)"></espe-list>
-  <v-data-table
-    :headers="headers"
-    :items="medicos"
-    class="elevation-1"
-  >
-    <template v-slot:items="props">
-      <td>{{ props.item.id }}</td>
-      <td class="text-xs-right">{{ props.item.nombre }}</td>
-      <td class="text-xs-right">{{ props.item.apellido }}</td>
-      <td class="text-xs-right">{{ props.item.dni }}</td>
-      <td class="text-xs-right">{{ props.item.matricula }}</td>
+  
+    <v-layout row :wrap="true" align-center>
+     
+      <v-flex xs2 sm2 md2 lg2 xl2>
+        <v-subheader>Medicos</v-subheader>
+      </v-flex>
+      <v-flex xs4 sm4 md4 lg4 xl4 >
+        <v-select
+          v-model="select"
+          :hint="`${select.especialidad}`"
+          :items="medicos"
+          item-text="nombre"
+          item-value="apellido"
+          label="Select"
+          persistent-hint
+          return-object
+          single-line
+        >
+        
+          <template slot="selection" slot-scope="data">
+        
+           {{ data.item.apellido }}   {{ data.item.nombre }}
+          </template>
+          <template slot="item" slot-scope="data">
+         
+             {{ data.item.apellido }}   {{ data.item.nombre }}
+          </template>
+        
+        </v-select>
+        
+      </v-flex>
+    </v-layout>
 
-    </template>
-    
-  </v-data-table>
+    </v-container>
 
   </div>
   
@@ -61,6 +81,7 @@ export default {
           value: 'numeroMatricula' 
         }
       ],
+       select: { nombre: '', apellido: '' },
       medicos:[],
      
     }
@@ -71,6 +92,9 @@ export default {
   },
 
   methods: {
+    prueba(){
+      alert("selecciono un medico");
+    },
     getMedicos: async function(buscarMedico) {
       try {
         const response = await Medicos.getRestApi().getMedicoEspecialidad(buscarMedico);

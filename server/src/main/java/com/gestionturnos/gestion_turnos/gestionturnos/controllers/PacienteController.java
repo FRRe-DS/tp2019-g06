@@ -29,69 +29,78 @@ import com.gestionturnos.gestion_turnos.gestionturnos.model.Paciente;
  *
  */
 @RestController
-@RequestMapping("/paciente")
+@RequestMapping("api/paciente")
 public class PacienteController {
-	
+
 	@Autowired
 	private PacienteRepository repository;
-			
+
 	@Autowired
 	private ObraSocialRepository obraSocialRepository;
-	
+
 	@GetMapping()
 	public Page<Paciente> getPage(Pageable pageable) {
 		return repository.findAll(pageable);
 	}
-		
+
 	@GetMapping("/{idPaciente}")
 	public ResponseEntity<Paciente> findById(@PathVariable Integer idPaciente) {
-		
+
 		Optional<Paciente> opt = repository.findById(idPaciente);
 		if (opt.isPresent())
 			return ResponseEntity.ok(opt.get());
 		return ResponseEntity.notFound().build();
 	}
-	
+
+	@GetMapping("/dni/{dni}")
+	public ResponseEntity<Paciente> findByDni(@PathVariable Integer dni) {
+
+		Optional<Paciente> opt = repository.findByDni(dni);
+		if (opt.isPresent())
+			return ResponseEntity.ok(opt.get());
+		return ResponseEntity.notFound().build();
+	}
+
 	@GetMapping("/obraSocial/{idObraSocial}")
 	public ResponseEntity<Set<Paciente>> findByObraSocial(@PathVariable Integer idObraSocial) {
 		ObraSocial obraSocial = obraSocialRepository.getOne(idObraSocial);
 		Set<Paciente> ret = repository.findByObraSocial(obraSocial);
 		return ResponseEntity.ok(ret);
 	}
-	
-	/*@GetMapping("/turno/{idTurno}")
-	public ResponseEntity<Set<Paciente>> findByTurno(@PathVariable Integer idTurno) {
-		Turno turno = turnoRepository.getOne(idTurno);
-		Set<Paciente> ret = repository.findByTurno(turno);
-		return ResponseEntity.ok(ret);
-	}*/
-	
+
+	/*
+	 * @GetMapping("/turno/{idTurno}") public ResponseEntity<Set<Paciente>>
+	 * findByTurno(@PathVariable Integer idTurno) { Turno turno =
+	 * turnoRepository.getOne(idTurno); Set<Paciente> ret =
+	 * repository.findByTurno(turno); return ResponseEntity.ok(ret); }
+	 */
+
 	@PostMapping()
 	public ResponseEntity<Paciente> create(@Valid @RequestBody Paciente createRequest) {
-		//System.out.println(createRequest.getObraSocial());
+		// System.out.println(createRequest.getObraSocial());
 		var obra = createRequest.getObraSocial();
 		var result = obraSocialRepository.findById(obra.getIdObraSocial());
-		if (result.isEmpty()){
+		if (result.isEmpty()) {
 			createRequest.setObraSocial(null);
 		}
 		return ResponseEntity.ok(repository.save(createRequest));
 	}
-	
+
 	@PutMapping()
 	public ResponseEntity<Paciente> update(@Valid @RequestBody Paciente updateRequest) {
 		boolean exists = repository.existsById(updateRequest.getIdPaciente());
 		if (exists) {
 			return ResponseEntity.ok(repository.save(updateRequest));
 		}
-		return ResponseEntity.notFound().build();		
+		return ResponseEntity.notFound().build();
 	}
-	
+
 	@DeleteMapping("/{idPaciente}")
 	public ResponseEntity<Paciente> delete(@PathVariable Integer idPaciente) {
 		Optional<Paciente> opt = repository.findById(idPaciente);
 		if (opt.isPresent()) {
 			repository.delete(opt.get());
-			return ResponseEntity.ok().build();			
+			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
 	}

@@ -1,8 +1,9 @@
 <template>
+  <div class="col-md-4">
   <v-container fluid>
     <v-layout wrap>
       
-      <v-flex xs12>
+      <v-flex xs12 md4>
         <v-combobox
           v-model="select"
           return-object
@@ -33,7 +34,7 @@
     </v-layout>
     
   </v-container>
-
+  </div>
 </template>
   
 
