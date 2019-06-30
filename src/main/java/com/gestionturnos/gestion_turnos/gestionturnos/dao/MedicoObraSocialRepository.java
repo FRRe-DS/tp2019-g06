@@ -3,11 +3,8 @@ package com.gestionturnos.gestion_turnos.gestionturnos.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
-
-import javax.validation.Valid;
-
-import com.gestionturnos.gestion_turnos.gestionturnos.model.ClaveMedicoObraSocial;
 import com.gestionturnos.gestion_turnos.gestionturnos.model.MedicoObraSocial;
 
 
@@ -20,7 +17,7 @@ import com.gestionturnos.gestion_turnos.gestionturnos.model.MedicoObraSocial;
 @Repository
 public interface MedicoObraSocialRepository extends JpaRepository<MedicoObraSocial, Integer>{
 	
-	Optional<MedicoObraSocial> findByIdMedico(Integer idMedico);
-	Optional<MedicoObraSocial> findByIdObraSocial(Integer idObraSocial);
-				
+	List<MedicoObraSocial> findByIdMedico(Integer idMedico);
+	List<MedicoObraSocial> findByIdObraSocial(Integer idObraSocial);
+					
 }

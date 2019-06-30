@@ -68,14 +68,7 @@ public class Medico implements java.io.Serializable {
     @NotNull
     @Column(name = "especialidad", nullable = false)
     private String especialidad;
-   /*     
-   @JsonIgnore
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(
-      name = "ObraSocial_idObraSocial", referencedColumnName = "idObraSocial",
-          nullable = true)
-  private ObraSocial obraSocial;
-     
+           
     @JsonIgnore 
     @OneToMany(mappedBy = "medico", 
             cascade = CascadeType.ALL) 
@@ -84,12 +77,12 @@ public class Medico implements java.io.Serializable {
     public List<Turno> getTurnos(){ 
         return turnos;
     }
-    */
+    
     public Medico(){
         
     }
     
-    public Medico (int idM, String ap, String nomb, int ingdni, String ingsexo, String estCivil, String direc, int matric, String espec, ObraSocial obra) {
+    public Medico (int idM, String ap, String nomb, int ingdni, String ingsexo, String estCivil, String direc, int matric, String espec) {
         idMedico = idM;
         apellido = ap;
         nombre = nomb;
@@ -99,7 +92,7 @@ public class Medico implements java.io.Serializable {
         direccion = direc;
         matricula = matric;
         especialidad = espec;
-       // obraSocial =  obra;
+       
     }
       
     //Getters and Setters
@@ -167,15 +160,7 @@ public class Medico implements java.io.Serializable {
     public void setMatricula(Integer matricula) {
         this.matricula = matricula;
     }
-/*
-    public ObraSocial getObraSocial() {
-        return  obraSocial;
-    }
 
-    public void setObraSocial(ObraSocial obraSocial) {
-        this.obraSocial = obraSocial;
-    }
-*/
     public String getEspecialidad() {
         return especialidad;
     }
@@ -183,12 +168,11 @@ public class Medico implements java.io.Serializable {
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
-/*
     
     public void setTurnos(List<Turno> turnos) {
         this.turnos = turnos;
     }
-   */ 
+   
     @Override
     public int hashCode()
     {

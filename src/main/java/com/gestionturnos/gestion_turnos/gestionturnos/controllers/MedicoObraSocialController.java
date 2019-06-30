@@ -1,5 +1,7 @@
 package com.gestionturnos.gestion_turnos.gestionturnos.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -24,6 +26,8 @@ import com.gestionturnos.gestion_turnos.gestionturnos.dao.ObraSocialRepository;
 import com.gestionturnos.gestion_turnos.gestionturnos.dao.TurnoRepository;
 import com.gestionturnos.gestion_turnos.gestionturnos.model.ClaveMedicoObraSocial;
 import com.gestionturnos.gestion_turnos.gestionturnos.model.MedicoObraSocial;
+import com.gestionturnos.gestion_turnos.gestionturnos.model.Medico;
+import com.gestionturnos.gestion_turnos.gestionturnos.model.ObraSocial;
 
 /**
  * 
@@ -50,7 +54,7 @@ public class MedicoObraSocialController {
 	public Page<MedicoObraSocial> getPage(Pageable pageable) {
 		return repository.findAll(pageable);
 	}
-
+/*
 	@GetMapping("/{idMedico}")
 	public ResponseEntity<MedicoObraSocial> findByIdMedico(@PathVariable Integer idMedico) {
 		
@@ -69,6 +73,31 @@ public class MedicoObraSocialController {
 			return ResponseEntity.ok(opt.get());
 		return ResponseEntity.notFound().build();
 	}
+*/
+	@GetMapping("/medicos")
+	public List<Medico> findByIdObraSocial(@PathVariable Integer idObraSocial){
+		List<MedicoObraSocial> filtradoObraSoc = repository.findByIdObraSocial(idObraSocial);
+		List<Medico> Medicos = new ArrayList<>();
+
+		for (MedicoObraSocial i : filtradoObraSoc) {
+			var medico = medicoRepository.findById(i.getIdMedico());
+			Medicos.add(medico.get());
+		}
+		return Medicos;
+
+	}
+
+	@GetMapping("/obraSocial")
+	public List<ObraSocial> findByIdMedico(@PathVariable Integer idMedico){
+		List<MedicoObraSocial> filtradoMedico = repository.findByIdMedico(idMedico);
+		List<ObraSocial> Obras = new ArrayList<>();
+		
+		for (MedicoObraSocial i : filtradoMedico) {
+			var obra = obraSocialRepository.findById(i.getIdObraSocial());
+			Obras.add(obra.get());
+		}
+		return Obras;
+	}
 
 	@PostMapping()
 	public ResponseEntity<MedicoObraSocial> create(@Valid @RequestBody MedicoObraSocial createRequest) {
@@ -83,7 +112,7 @@ public class MedicoObraSocialController {
 
 		}
 		return ResponseEntity.notFound().build();
-
+		
 	}
 
 	@PutMapping()
@@ -98,13 +127,14 @@ public class MedicoObraSocialController {
 
 	@DeleteMapping("/medico/{idMedico}/obraSocial/{idObraSocial}")
 	public ResponseEntity<?> delete(@PathVariable Integer idMedico, @PathVariable Integer idObraSocial) {
-		Optional<MedicoObraSocial> opt = repository.findByIdMedico(idMedico);
-		Optional<MedicoObraSocial> opt2 = repository.findByIdObraSocial(idObraSocial);
-		if (opt.isPresent() && opt2.isPresent()) {
-            repository.delete(opt.get());
-            repository.delete(opt2.get());
-			return ResponseEntity.ok().build();			
+		List<MedicoObraSocial> opt = repository.findByIdMedico(idMedico);
+		for (MedicoObraSocial i : opt) {
+			 if	(i.getIdObraSocial() == idObraSocial){
+				 repository.delete((i));
+				 return ResponseEntity.ok().build();		
+			 }
 		}
+
 		return ResponseEntity.notFound().build();
 }
 	

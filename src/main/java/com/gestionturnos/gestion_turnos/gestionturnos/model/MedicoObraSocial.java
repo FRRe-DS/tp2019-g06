@@ -1,15 +1,10 @@
 package com.gestionturnos.gestion_turnos.gestionturnos.model;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.OneToMany;
+
 
 /**
  * 
@@ -18,29 +13,47 @@ import javax.persistence.OneToMany;
  */
 
 @Entity
-@IdClass(ClaveMedicoObraSocial.class)
+//@IdClass(ClaveMedicoObraSocial.class)
 public class MedicoObraSocial {
     @Id
+    @Column(name = "idMedicoObraSocial")
+    private Integer idMedicoObraSocial;
+    
+    /*  Id Medico   */
+    
     private Integer idMedico;
-
-    @Id
+    
+    /*  Id Obra Social  */
+    
     private Integer idObraSocial;
 
- 
-    @OneToMany(mappedBy = "medicoObraSocial", 
-           fetch = FetchType.LAZY,
-           cascade = CascadeType.ALL,
-           orphanRemoval = true)
-   private Set<Turno> turnos;
+    public MedicoObraSocial(){}
 
-   public MedicoObraSocial(){}
+    public Integer getIdObraSocial() {
+        return idObraSocial;
 
-public Integer getIdObraSocial() {
-	return null;
-}
+    }
 
-public Integer getIdMedico() {
-	return null;
-}
+    public void setIdObraSocial(Integer idObraSocial){
+        this.idObraSocial = idObraSocial;
+    }
+
+    public Integer getIdMedico() {
+	    return idMedico;
+    }
+
+    public void setIdMedico(Integer idMedico){
+        this.idMedico = idMedico;
+    }
+
+    public Integer getIdMedicoObraSocial() {
+	    return idMedicoObraSocial;
+    }
+
+    public void setIdMedicoObraSocial(Integer idMedicoObraSocial){
+        this.idMedicoObraSocial = idMedicoObraSocial;
+    }
+
+
 
 }

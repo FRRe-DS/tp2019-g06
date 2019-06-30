@@ -5,11 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -29,31 +25,37 @@ public class ObraSocial implements java.io.Serializable{
 	 */
     private static final long serialVersionUID = 1L;
     
+    /*  Id Obra Social  */
     @Id
     @Column(name = "idObraSocial")
     private Integer idObraSocial;
     
+    /*  Nombre de la Obra Social    */
     @NotNull
     @Size(min= 1, max=45)
     @Column(name = "nombre", nullable = false)
     @Pattern(regexp = "[a-z \\s A-Z ñ Ñ]{1,45}",message = "El nombre no puede contener caracteres no válidos")
     private String nombre;
     
+    /*  Direccion de la Obra Social */
     @NotNull
     @Column(name = "direccion", nullable = false)
     private String direccion;
     
+    /*  Relacion con el Paciente    */
     @JsonIgnore 
     @OneToMany(mappedBy = "obraSocial",
     cascade = CascadeType.ALL,
             orphanRemoval = true)           
     private List<Paciente> paciente;
-    /*
-    @JsonIgnore 
-    @OneToMany(mappedBy = "obraSocial", 
-            cascade = CascadeType.ALL)    
-    private List<MedicoObraSocial> medicoObraSociales; 
-   */
+  
+    /*  Relacion con Turno    */
+    @JsonIgnore
+    @OneToMany(mappedBy = "obraSocial",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)    
+    private List<Turno> turnos;
+
     public ObraSocial(int idS, String nomb, String direc) {
 
         idObraSocial = idS;
@@ -89,24 +91,14 @@ public class ObraSocial implements java.io.Serializable{
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-/*
-    public List<PacienteObraSocial> getPacienteObraSocial() {
-        return pacientesObraSocial;
+
+    public List<Turno> getTurnos(){ 
+        return turnos;
     }
 
-    public void setPacienteObraSocial(List<PacienteObraSocial> pacientesObraSocial) {
-        this.pacientesObraSocial = pacientesObraSocial;
+    public void setTurnos(List<Turno> turnos) {
+        this.turnos = turnos;
     }
-
-    public List<MedicoObraSocial> getMedicoObraSocial() {
-        return medicoObraSociales;
-    }
-
-    public void setMedicoObraSocial(List<MedicoObraSocial> medicoObraSociales) {
-        this.medicoObraSociales = medicoObraSociales;
-    }
-
-    */
     
     @Override
     public int hashCode()

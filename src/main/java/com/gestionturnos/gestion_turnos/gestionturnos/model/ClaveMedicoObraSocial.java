@@ -1,8 +1,6 @@
 package com.gestionturnos.gestion_turnos.gestionturnos.model;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Id;
 
 /**
  * 

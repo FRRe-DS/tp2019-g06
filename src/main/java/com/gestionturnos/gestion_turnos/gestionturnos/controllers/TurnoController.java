@@ -79,46 +79,8 @@ public class TurnoController {
 	
 	@PostMapping()
 	public ResponseEntity<Turno> create(@Valid @RequestBody Turno createRequest) {
-		/*var obraTurno = createRequest.getObraSocial(); //true or false
-		var paciente = createRequest.getPaciente();
-		var medico = createRequest.getMedico();
-				
-		var resultpacient = paciente.getObraSocial(); 
-		var idObraSocialPac = obraSocialRepository.findById(resultpacient.getIdObraSocial()); //id paciente obraSocial
-
-		var resultmedic = medico.getObraSociales();
-		var idObraSocialMed = obraSocialRepository.findById(resultmedic.getIdObraSociales()); //id medico obraSocial
-
-		if (obraTurno == true){
-			if(idObraSocialMed.isEmpty() | idObraSocialPac.isEmpty()){
-				System.out.println("El medico o el paciente no tienen obra social");
-				return ResponseEntity.notFound().build();
-			}else{
-
-				var tur = medico.getTurnos();
-
-				if(idObraSocialMed == idObraSocialPac){
-					System.out.println("SON IGUALES LAS OBRAS SOCIALES DE idMed y idPac");
-				}else{
-					System.out.println("NOO SON IGUALES LAS OBRAS SOCIALES DE idMed y idPac");
-					System.out.println(tur);
-					return ResponseEntity.notFound().build();
-				}
-			}
-		}*/
-		/*var paciente = createRequest.getPaciente();
-		var medicos = createRequest.getMedico();
-
-		var resultpacient = paciente.getObraSocial();
-		 
-		var resultmedico = medicos.getObraSocial();
 		
-		if (resultmedico.contains(resultpacient) == false){
-			return ResponseEntity.notFound().build();
- 
-		}
-
-			*/	
+		
 		return ResponseEntity.ok(repository.save(createRequest));
 			
 	}
