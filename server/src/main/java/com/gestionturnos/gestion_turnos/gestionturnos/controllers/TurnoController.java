@@ -33,13 +33,13 @@ import com.gestionturnos.gestion_turnos.gestionturnos.model.Turno;
 @RestController
 @RequestMapping("/turno")
 public class TurnoController {
-	
+
 	@Autowired
 	private TurnoRepository repository;
 
 	@Autowired
 	private MedicoRepository medicoRepository;
-	
+
 	@Autowired
 	private PacienteRepository pacienteRepository;
 
@@ -48,21 +48,21 @@ public class TurnoController {
 
 	@Autowired
 	private TurnoRepository turnoRepository;
-	
+
 	@GetMapping()
 	public Page<Turno> getPage(Pageable pageable) {
 		return repository.findAll(pageable);
 	}
-	
+
 	@GetMapping("/{idTurno}")
 	public ResponseEntity<Turno> findById(@PathVariable Integer idTurno) {
-		
+
 		Optional<Turno> opt = repository.findById(idTurno);
 		if (opt.isPresent())
 			return ResponseEntity.ok(opt.get());
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@GetMapping("/paciente/{idPaciente}")
 	public ResponseEntity<Set<Turno>> findByPaciente(@PathVariable Integer idPaciente) {
 		Paciente paciente = pacienteRepository.getOne(idPaciente);
@@ -70,74 +70,71 @@ public class TurnoController {
 		return ResponseEntity.ok(ret);
 	}
 	/*
-	@GetMapping("/medico/{idMedico}")
-	public ResponseEntity<Set<Turno>> findByMedico(@PathVariable Integer idMedico) {
-		Medico medico = medicoRepository.getOne(idMedico);
-		Set<Turno> ret = repository.findByMedico(medico);
-		return ResponseEntity.ok(ret);
-	}*/
-	
+	 * @GetMapping("/medico/{idMedico}") public ResponseEntity<Set<Turno>>
+	 * findByMedico(@PathVariable Integer idMedico) { Medico medico =
+	 * medicoRepository.getOne(idMedico); Set<Turno> ret =
+	 * repository.findByMedico(medico); return ResponseEntity.ok(ret); }
+	 */
+
 	@PostMapping()
 	public ResponseEntity<Turno> create(@Valid @RequestBody Turno createRequest) {
-		/*var obraTurno = createRequest.getObraSocial(); //true or false
-		var paciente = createRequest.getPaciente();
-		var medico = createRequest.getMedico();
-				
-		var resultpacient = paciente.getObraSocial(); 
-		var idObraSocialPac = obraSocialRepository.findById(resultpacient.getIdObraSocial()); //id paciente obraSocial
-
-		var resultmedic = medico.getObraSociales();
-		var idObraSocialMed = obraSocialRepository.findById(resultmedic.getIdObraSociales()); //id medico obraSocial
-
-		if (obraTurno == true){
-			if(idObraSocialMed.isEmpty() | idObraSocialPac.isEmpty()){
-				System.out.println("El medico o el paciente no tienen obra social");
-				return ResponseEntity.notFound().build();
-			}else{
-
-				var tur = medico.getTurnos();
-
-				if(idObraSocialMed == idObraSocialPac){
-					System.out.println("SON IGUALES LAS OBRAS SOCIALES DE idMed y idPac");
-				}else{
-					System.out.println("NOO SON IGUALES LAS OBRAS SOCIALES DE idMed y idPac");
-					System.out.println(tur);
-					return ResponseEntity.notFound().build();
-				}
-			}
-		}*/
-		/*var paciente = createRequest.getPaciente();
-		var medicos = createRequest.getMedico();
-
-		var resultpacient = paciente.getObraSocial();
-		 
-		var resultmedico = medicos.getObraSocial();
-		
-		if (resultmedico.contains(resultpacient) == false){
-			return ResponseEntity.notFound().build();
- 
-		}
-
-			*/	
+		/*
+		 * var obraTurno = createRequest.getObraSocial(); //true or false var paciente =
+		 * createRequest.getPaciente(); var medico = createRequest.getMedico();
+		 * 
+		 * var resultpacient = paciente.getObraSocial(); var idObraSocialPac =
+		 * obraSocialRepository.findById(resultpacient.getIdObraSocial()); //id paciente
+		 * obraSocial
+		 * 
+		 * var resultmedic = medico.getObraSociales(); var idObraSocialMed =
+		 * obraSocialRepository.findById(resultmedic.getIdObraSociales()); //id medico
+		 * obraSocial
+		 * 
+		 * if (obraTurno == true){ if(idObraSocialMed.isEmpty() |
+		 * idObraSocialPac.isEmpty()){
+		 * System.out.println("El medico o el paciente no tienen obra social"); return
+		 * ResponseEntity.notFound().build(); }else{
+		 * 
+		 * var tur = medico.getTurnos();
+		 * 
+		 * if(idObraSocialMed == idObraSocialPac){
+		 * System.out.println("SON IGUALES LAS OBRAS SOCIALES DE idMed y idPac"); }else{
+		 * System.out.println("NOO SON IGUALES LAS OBRAS SOCIALES DE idMed y idPac");
+		 * System.out.println(tur); return ResponseEntity.notFound().build(); } } }
+		 */
+		/*
+		 * var paciente = createRequest.getPaciente(); var medicos =
+		 * createRequest.getMedico();
+		 * 
+		 * var resultpacient = paciente.getObraSocial();
+		 * 
+		 * var resultmedico = medicos.getObraSocial();
+		 * 
+		 * if (resultmedico.contains(resultpacient) == false){ return
+		 * ResponseEntity.notFound().build();
+		 * 
+		 * }
+		 * 
+		 */
 		return ResponseEntity.ok(repository.save(createRequest));
-			
+
 	}
-	
+
 	@PutMapping()
 	public ResponseEntity<Turno> update(@Valid @RequestBody Turno updateRequest) {
 		boolean exists = repository.existsById(updateRequest.getIdTurno());
 		if (exists) {
 			return ResponseEntity.ok(repository.save(updateRequest));
 		}
-		return ResponseEntity.notFound().build();		
+		return ResponseEntity.notFound().build();
 	}
-	
+
 	@DeleteMapping("/{idTurno}")
 	public ResponseEntity<Turno> delete(@PathVariable Integer idTurno) {
 		Optional<Turno> opt = repository.findById(idTurno);
 		if (opt.isPresent()) {
 			repository.delete(opt.get());
-			return ResponseEntity.ok().build();			
+			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
 	}

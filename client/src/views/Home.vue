@@ -1,8 +1,9 @@
 <template>
   <div class="home">
-   <RegistrarTurno/>
-   <verificarPaciente/>
-
+    <verificarPaciente/>
+    <RegistrarTurno/>
+    <FechaHora/>
+    <Turno/>
   </div>
 </template>
 
@@ -13,6 +14,8 @@ import medicosList from '@/components/medicos/medicosList.vue';
 import especialidadesList from '@/components/especialidades/especialidadesList.vue';
 import RegistrarTurno from '@/components/turnos/RegistrarTurno.vue';
 import verificarPaciente from '@/components/paciente/verificarPaciente.vue';
+import Turno from '@/components/turnos/Turno.vue';
+import FechaHora from '@/components/turnos/FechaHora.vue';
 @Component({
   name: 'obraSocial',
   components: {
@@ -21,6 +24,8 @@ import verificarPaciente from '@/components/paciente/verificarPaciente.vue';
     especialidadesList,
     RegistrarTurno,
     verificarPaciente,
+    Turno,
+    FechaHora,
   },
 })
 export default class Home extends Vue {
