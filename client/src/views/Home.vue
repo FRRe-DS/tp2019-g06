@@ -1,9 +1,16 @@
 <template>
   <div class="home">
+    <v-container>
+    <h2>Para registrar su turno correctamente por favor siga los siguientes pasos: </h2>
+    <br/>
+    <h3>1. Ingrese su Dni y luego presione enter</h3>
     <verificarPaciente/>
     <medicosList/>
+    <h3>4. Seleccione Fecha y Hora</h3><br/>
     <FechaHora/>
+    <h3>5. Presione Registrar Turno</h3><br/>
     <Turno/>
+    </v-container>
   </div>
 </template>
 

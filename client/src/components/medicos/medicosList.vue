@@ -1,8 +1,9 @@
 <template>
   <div class="medicosList">
     <v-container>
+    <h3>2. Seleccione la especialidad</h3><br/>
     <espe-list v-on:mandar="getMedicos($event)"></espe-list>
-  
+    <h3>3. Seleccione el Médico</h3><br/>
     <v-layout row :wrap="true" align-center>
      
       <v-flex xs2 sm2 md2 lg2 xl2>
