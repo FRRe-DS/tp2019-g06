@@ -1,5 +1,6 @@
 package com.gestionturnos.gestion_turnos.gestionturnos.controllers;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -20,8 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gestionturnos.gestion_turnos.gestionturnos.dao.ObraSocialRepository;
 import com.gestionturnos.gestion_turnos.gestionturnos.dao.PacienteRepository;
+import com.gestionturnos.gestion_turnos.gestionturnos.dao.TurnoRepository;
 import com.gestionturnos.gestion_turnos.gestionturnos.model.ObraSocial;
 import com.gestionturnos.gestion_turnos.gestionturnos.model.Paciente;
+import com.gestionturnos.gestion_turnos.gestionturnos.model.Turno;
 
 /**
  * 
@@ -37,6 +40,9 @@ public class PacienteController {
 			
 	@Autowired
 	private ObraSocialRepository obraSocialRepository;
+
+	@Autowired
+	private TurnoRepository turnoRepository;
 	
 	@GetMapping()
 	public Page<Paciente> getPage(Pageable pageable) {
@@ -51,6 +57,15 @@ public class PacienteController {
 			return ResponseEntity.ok(opt.get());
 		return ResponseEntity.notFound().build();
 	}
+
+	@GetMapping("/dni/{dni}")
+	public ResponseEntity<Paciente> findByDni(@PathVariable Integer dni) {
+
+		Optional<Paciente> opt = repository.findByDni(dni);
+		if (opt.isPresent())
+			return ResponseEntity.ok(opt.get());
+		return ResponseEntity.notFound().build();
+	}
 	
 	@GetMapping("/obraSocial/{idObraSocial}")
 	public ResponseEntity<Set<Paciente>> findByObraSocial(@PathVariable Integer idObraSocial) {
@@ -61,8 +76,8 @@ public class PacienteController {
 	
 	/*@GetMapping("/turno/{idTurno}")
 	public ResponseEntity<Set<Paciente>> findByTurno(@PathVariable Integer idTurno) {
-		Turno turno = turnoRepository.getOne(idTurno);
-		Set<Paciente> ret = repository.findByTurno(turno);
+		Turno turnos = turnoRepository.getOne(idTurno);
+		Set<Paciente> ret = repository.findByTurno(turnos);
 		return ResponseEntity.ok(ret);
 	}*/
 	
