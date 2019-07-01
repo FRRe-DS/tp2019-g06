@@ -1,18 +1,34 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <verificarPaciente/>
+    <medicosList/>
+    <FechaHora/>
+    <Turno/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-
+import obraSocialList from '@/components/obrasSociales/obraSocialList.vue';
+import medicosList from '@/components/medicos/medicosList.vue';
+import especialidadesList from '@/components/especialidades/especialidadesList.vue';
+import RegistrarTurno from '@/components/turnos/RegistrarTurno.vue';
+import verificarPaciente from '@/components/paciente/verificarPaciente.vue';
+import Turno from '@/components/turnos/Turno.vue';
+import FechaHora from '@/components/turnos/FechaHora.vue';
 @Component({
+  name: 'obraSocial',
   components: {
-    HelloWorld,
+    obraSocialList,
+    medicosList,
+    especialidadesList,
+    RegistrarTurno,
+    verificarPaciente,
+    Turno,
+    FechaHora,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+
+}
 </script>
