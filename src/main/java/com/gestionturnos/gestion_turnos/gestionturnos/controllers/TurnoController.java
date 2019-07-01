@@ -1,7 +1,7 @@
 package com.gestionturnos.gestion_turnos.gestionturnos.controllers;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gestionturnos.gestion_turnos.gestionturnos.dao.MedicoRepository;
 import com.gestionturnos.gestion_turnos.gestionturnos.dao.PacienteRepository;
 import com.gestionturnos.gestion_turnos.gestionturnos.dao.TurnoRepository;
-import com.gestionturnos.gestion_turnos.gestionturnos.dao.ObraSocialRepository;
 import com.gestionturnos.gestion_turnos.gestionturnos.model.Medico;
 import com.gestionturnos.gestion_turnos.gestionturnos.model.Paciente;
 import com.gestionturnos.gestion_turnos.gestionturnos.model.Turno;
@@ -42,12 +41,6 @@ public class TurnoController {
 	
 	@Autowired
 	private PacienteRepository pacienteRepository;
-
-	@Autowired
-	private ObraSocialRepository obraSocialRepository;
-
-	@Autowired
-	private TurnoRepository turnoRepository;
 	
 	@GetMapping()
 	public Page<Turno> getPage(Pageable pageable) {
@@ -63,23 +56,27 @@ public class TurnoController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/paciente/{idPaciente}")
-	public ResponseEntity<Set<Turno>> findByPaciente(@PathVariable Integer idPaciente) {
-		Paciente paciente = pacienteRepository.getOne(idPaciente);
-		Set<Turno> ret = repository.findByPaciente(paciente);
-		return ResponseEntity.ok(ret);
+	
+	@GetMapping("/turnos/paciente/{idPaciente}")
+	public List<Turno> findByPaciente(@PathVariable Integer idPaciente) {
+		
+		Paciente pac = pacienteRepository.getOne(idPaciente);
+		List<Turno> filtradoPaciente = repository.findByPaciente(pac);
+
+		return filtradoPaciente;
 	}
-	/*
-	@GetMapping("/medico/{idMedico}")
-	public ResponseEntity<Set<Turno>> findByMedico(@PathVariable Integer idMedico) {
+
+	
+	@GetMapping("/turnos/medico/{idMedico}")
+	public List<Turno> findByMedico(@PathVariable Integer idMedico) {
 		Medico medico = medicoRepository.getOne(idMedico);
-		Set<Turno> ret = repository.findByMedico(medico);
-		return ResponseEntity.ok(ret);
-	}*/
+		List<Turno> filtradoMedico = repository.findByMedico(medico);
+
+		return filtradoMedico;
+	}
 	
 	@PostMapping()
 	public ResponseEntity<Turno> create(@Valid @RequestBody Turno createRequest) {
-		
 		
 		return ResponseEntity.ok(repository.save(createRequest));
 			

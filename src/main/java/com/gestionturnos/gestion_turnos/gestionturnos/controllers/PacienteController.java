@@ -74,6 +74,12 @@ public class PacienteController {
 		return ResponseEntity.ok(ret);
 	}
 	
+	
+
+
+
+
+
 	/*@GetMapping("/turno/{idTurno}")
 	public ResponseEntity<Set<Paciente>> findByTurno(@PathVariable Integer idTurno) {
 		Turno turnos = turnoRepository.getOne(idTurno);
