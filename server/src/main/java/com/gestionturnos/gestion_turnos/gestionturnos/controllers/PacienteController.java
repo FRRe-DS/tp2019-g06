@@ -92,8 +92,10 @@ public class PacienteController {
 		//System.out.println(createRequest.getObraSocial());
 		var obra = createRequest.getObraSocial();
 		var result = obraSocialRepository.findById(obra.getIdObraSocial());
+		System.out.println(result);
 		if (result.isEmpty()){
 			createRequest.setObraSocial(null);
+			System.out.println(createRequest);
 		}
 		return ResponseEntity.ok(repository.save(createRequest));
 	}

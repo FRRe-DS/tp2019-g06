@@ -74,7 +74,7 @@ public class MedicoObraSocialController {
 		return ResponseEntity.notFound().build();
 	}
 */
-	@GetMapping("/medicos")
+	@GetMapping("/medicos/{idObraSocial}")
 	public List<Medico> findByIdObraSocial(@PathVariable Integer idObraSocial){
 		List<MedicoObraSocial> filtradoObraSoc = repository.findByIdObraSocial(idObraSocial);
 		List<Medico> Medicos = new ArrayList<>();
@@ -87,7 +87,7 @@ public class MedicoObraSocialController {
 
 	}
 
-	@GetMapping("/obraSocial")
+	@GetMapping("/obraSocial/{idMedico}")
 	public List<ObraSocial> findByIdMedico(@PathVariable Integer idMedico){
 		List<MedicoObraSocial> filtradoMedico = repository.findByIdMedico(idMedico);
 		List<ObraSocial> Obras = new ArrayList<>();
