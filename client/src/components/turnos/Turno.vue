@@ -37,6 +37,7 @@ import Hora from '@/components/turnos/Hora.vue';
 import Motivo from '@/components/turnos/Motivo.vue';
 import { Medico }  from '../../rest/medico';
 import Turnos, { Turno} from '../../rest/turno';
+import { ObraSocial } from '../../rest/obraSocial';
 
 
 
@@ -51,15 +52,17 @@ export default {
     'fecha' : Fecha,
     'hora' : Hora,
     'motivo' : Motivo,
+    
   },
 
   data () {
     return {
-      turno:{idTurno:0,fecha:'',hora:'',motivoConsulta:'',
+      turno:{idTurno:0,fecha:'' ,hora:'',motivoConsulta:'',
       paciente:{idPaciente:0,apellido:'',nombre:'',dni:0,fechaNacimiento:'',sexo:'', direccion:'',telefono:0, obraSocial:this.obraSocial},
       medico:{idMedico:0, apellido :'', nombre:'',dni:0, sexo:'', estadoCivil:'',direccion:'',matricula:0,especialidad:''},
       obraSocial:this.obraSocial},
       obraSocial:{idObraSocial:0, nombre:'',direccion:''},
+      turnos:[],
       }
   },
 
@@ -67,6 +70,8 @@ export default {
     this.obtenerPacientes();
     this.obtenerFecha();
     this.obtenerHora();
+  
+    
     },
 
   
@@ -83,20 +88,72 @@ export default {
         this.$data.data.obraSocial = this.$data.turno.obraSocial;
         console.log(this.$data.data);*/
     },
+    obtenerIdTurno: async function(variable){
+      this.$data.turnos = [];
+      try {
+        var mayor=0;
+        var arreglo=[];
+        const response = await Turnos.getRestApi().getAllTurnos();
+        console.log("response: ",response );
+        this.$data.turnos = response.data ;
+        for (var i = 0; i < this.$data.turnos.content.length; i++) {
+              arreglo.push(this.$data.turnos.content[i].idTurno);
+              }
+         for(var i=0,len=arreglo.length;i<len;i++){
+            if(mayor < arreglo[i]){
+                        mayor = arreglo[i];
+             }
+               }
+       variable= mayor;
+      } catch (error) {
+        this.emitError(error);
+        
+      }
+    },
     addToAPI: async function() {
         try {
+        
+
         var dat: Turno = new Turno();
-        dat.idTurno=this.$data.turno.idTurno;
+        dat.idTurno=0;
+                        this.$data.turnos = [];
+                try {
+                  var mayor=0;
+                  var arreglo=[];
+                  const response = await Turnos.getRestApi().getAllTurnos();
+                  console.log("response: ",response );
+                  this.$data.turnos = response.data ;
+                  for (var i = 0; i < this.$data.turnos.content.length; i++) {
+                        arreglo.push(this.$data.turnos.content[i].idTurno);
+                        }
+                  for(var i=0,len=arreglo.length;i<len;i++){
+                      if(mayor < arreglo[i]){
+                                  mayor = arreglo[i];
+                      }
+                        }
+                dat.idTurno= mayor+1;
+                } catch (error) {
+                  this.emitError(error);
+                  
+                }
+      
+       //  var obra: ObraSocial=new ObraSocial();
         dat.paciente= this.$data.turno.paciente;
+       
         dat.medico= this.$data.turno.medico;
         dat.fecha= this.$data.turno.fecha;
+        console.log("formato fecha", this.$data.turno.fecha )
         dat.hora= this.$data.turno.hora+":00";
-        dat.obraSocial= this.$data.obraSocial;
-        dat.motivoConsulta= "dolor muscular";
+       
+       
+
+        dat.obraSocial=this.$data.turno.obraSocial;
+      
+        dat.motivoConsulta=this.$data.turno.motivoConsulta.toString();
         console.log(dat);
         const response = Turnos.getRestApi().createTurno(dat);
         console.log("Registro turno: ", response);
-        alert("Registro Exitoso ");
+        alert("Registro de turno Exitoso ");
          } catch (error) {
          this.emitError(error.message);
           alert("no se pudo registar el turno") ;
@@ -121,6 +178,7 @@ export default {
         console.log('!!!!!', this.$data.turno.paciente.obraSocial)
         console.log("agrego el paciente: ", paciente )
         this.$data.obraSocial = this.$data.turno.paciente.obraSocial
+       this.$data.turno.obraSocial=this.$data.obraSocial;
         console.log("obra social en turno ",this.$data.obraSocial)
         console.log("este paciente tengo: ", this.$data.turno.paciente )
         console.log("Ref: ", this.$children[0])
@@ -141,9 +199,10 @@ export default {
         console.log("este medico tengo: ", this.$data.turno.medico )
       },
       obtenerMotivo: function(motivo) {
-        this.$data.turno.motivoConsulta = motivo
+      
         console.log("agrego el motivo: ", motivo )
-        console.log("este motivo tengo: ", this.$data.turno.motivo )
+          this.$data.turno.motivoConsulta = motivo
+        console.log("este motivo tengo: ", this.$data.turno.motivoConsulta )
       },
     
     

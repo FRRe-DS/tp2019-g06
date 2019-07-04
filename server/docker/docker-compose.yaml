@@ -1,4 +1,4 @@
-version: "3.7"
+version: "2.1"
 services:
   grupo06-db:
     image: mysql:5.7
@@ -8,8 +8,8 @@ services:
       # So you don't have to use root, but you can if you like
       MYSQL_USER: 'root'
       # You can use whatever password you like
-      MYSQL_PASSWORD: 'flor21'
+      MYSQL_PASSWORD: 'Tere2019.'
       # Password for root access
-      MYSQL_ROOT_PASSWORD: 'flor21'
+      MYSQL_ROOT_PASSWORD: 'Tere2019.'
     ports:
      - "3306:3306"

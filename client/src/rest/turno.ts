@@ -9,16 +9,13 @@ import ObrasSociales, { ObraSocial } from "@/rest/obraSocial";
  */
 export class Turno {
   idTurno: number = 0;
-  fecha: string = "";
+  fecha: Date = new Date();
   hora: string = "";
   motivoConsulta: string = "";
   paciente: Paciente = new Paciente() ;
   medico:  Medico = new Medico() ;
   obraSocial:  ObraSocial = new ObraSocial() ;
   constructor() { };
-  public setidTurno(idTurno:number){
-    this.idTurno = idTurno;
-  }
 
 }
 
@@ -37,7 +34,7 @@ export interface TurnosRestApi {
  */
 class Implementation implements TurnosRestApi {
     getAllTurnos(): AxiosPromise<Turno[]> {
-        throw new Error("Method not implemented.");
+      return Axios.axiosInstance().get<Turno[]>("/turno");
    }
   createTurno(item: Turno): AxiosPromise<Turno> {
     return Axios.axiosInstance().post<Turno>("/turno", item);

@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,86 +26,82 @@ import org.springframework.expression.ParseException;
 @Entity
 public class Turno implements java.io.Serializable {
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 9066465383169529803L;
-    
-    /*  Id Turno    */
+
+    /* Id Turno */
     @Id
     @Column(name = "idTurno")
     private Integer idTurno;
 
-    /*  Fecha del turno */
+    /* Fecha del turno */
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha", nullable = false)
     private java.util.Date fecha;
 
-    /*  Hora del turno  */
+    /* Hora del turno */
     @NotNull
     @Column(name = "hora", nullable = false)
     private java.sql.Time hora;
-    
-    /*  Motivo de la consulta   */
+
+    /* Motivo de la consulta */
     @NotNull
     @Column(name = "motivo_consulta")
     private String motivoConsulta;
 
-    /*  Relacion con Paciente   */
+    /* Relacion con Paciente */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(
-        name = "Paciente_idPaciente", referencedColumnName = "idPaciente", nullable = false)
+    @JoinColumn(name = "Paciente_idPaciente", referencedColumnName = "idPaciente", nullable = false)
     private Paciente paciente;
 
-    /*  Relacion con Medico */
+    /* Relacion con Medico */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn( name = "Medico_idMedico", referencedColumnName = "idMedico", nullable = false)
+    @JoinColumn(name = "Medico_idMedico", referencedColumnName = "idMedico", nullable = false)
     private Medico medico;
 
-    /*  Relacion con ObraSocial */
+    /* Relacion con ObraSocial */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(
-        name = "ObraSocial_idObraSocial", referencedColumnName = "idObraSocial", nullable = false)
+    @JoinColumn(name = "ObraSocial_idObraSocial", referencedColumnName = "idObraSocial", nullable = true)
     private ObraSocial obraSocial;
 
-    public Turno(){ 
+    public Turno() {
 
     }
-    
-    public Turno (int idT, String fech, String hora1, String motConsulta, ObraSocial obraSoc, Medico med, Paciente pac) throws ParseException {
-        
+
+    public Turno(int idT, String fech, String hora1, String motConsulta, ObraSocial obraSoc, Medico med, Paciente pac)
+            throws ParseException {
+
         idTurno = idT;
-        try{
-          this.setFecha(fech);  
-          
+        try {
+            this.setFecha(fech);
+
+        } catch (java.text.ParseException e) {
+            System.out.println(e);
         }
-        catch( java.text.ParseException e){
-           System.out.println(e);
-        }
-        try{
-          this.setHora(hora1);  
-          
-        }
-        catch( java.text.ParseException e1){
-           System.out.println(e1);
+        try {
+            this.setHora(hora1);
+
+        } catch (java.text.ParseException e1) {
+            System.out.println(e1);
         }
         motivoConsulta = motConsulta;
         obraSocial = obraSoc;
         paciente = pac;
         medico = med;
-        
-        
+
     }
-    
+
     public void setFecha(String fecha) throws ParseException, java.text.ParseException {
-        
-        java.util.Date sqldate;
-        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-	Date imputDate = dateFormat.parse(fecha);
-	sqldate = new java.util.Date(imputDate.getTime());
-        this.fecha = sqldate;
+
+        // java.util.Date sqldate;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date imputDate = dateFormat.parse(fecha);
+        // sqldate = new java.util.Date(imputDate.getTime());
+        this.fecha = imputDate;
     }
-    
+
     public void setHora(String hora) throws ParseException, java.text.ParseException {
         java.sql.Time sqltime;
         DateFormat timeFormat = new SimpleDateFormat("hh:mm");
@@ -111,7 +109,7 @@ public class Turno implements java.io.Serializable {
         sqltime = new java.sql.Time(imputTime.getTime());
         this.hora = sqltime;
     }
-    /*  Getters and Setters */
+    /* Getters and Setters */
 
     public Integer getIdTurno() {
         return idTurno;
@@ -170,35 +168,35 @@ public class Turno implements java.io.Serializable {
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((idTurno == null) ? 0 : idTurno.hashCode());
         return result;
-    }    
-   
-    @Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final Turno other = (Turno) obj;
-		if (idTurno == null) {
-			if (other.idTurno != null)
-				return false;
-		} else if (!idTurno.equals(other.idTurno))
-			return false;
-		return true;
-     
     }
-        
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Turno other = (Turno) obj;
+        if (idTurno == null) {
+            if (other.idTurno != null)
+                return false;
+        } else if (!idTurno.equals(other.idTurno))
+            return false;
+        return true;
+
+    }
+
     @Override
     public String toString() {
-        return "Turno [id = " + idTurno + ", fecha=" + fecha + ", hora=" + hora +", motivoConsulta= " + motivoConsulta +"]";
+        return "Turno [id = " + idTurno + ", fecha=" + fecha + ", hora=" + hora + ", motivoConsulta= " + motivoConsulta
+                + "]";
     }
-      
+
 }
