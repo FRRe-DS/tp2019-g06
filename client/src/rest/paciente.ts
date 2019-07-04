@@ -1,6 +1,6 @@
 import Axios from "./axiosInstance";
 import { AxiosPromise } from "axios";
-import ObraSocial from "./obraSocial";
+import ObrasSociales, { ObraSocial } from "@/rest/obraSocial";
 
 /**
  * Paciente.
@@ -15,6 +15,7 @@ export class Paciente {
   sexo: string = "";
   direccion: string = "";
   telefono: number = 0;
+  obraSocial: ObraSocial = new ObraSocial();
   constructor() { }
 }
 

@@ -46,17 +46,15 @@ export default {
   },
   data () {
     return {
-         value: '',
-    
-      
-       select: { nombre: '', apellido: '' },
+      value: '',
+      select: { nombre: '', apellido: '' },
       paciente: [],
       rules: [v => v.length <= 8 || 'Solo se puede ingresar hasta 8 digitos numericos para el DNI'],
     }
   },
 
   created: function() {
-   
+
   },
    computed: {
       progress () {
@@ -74,7 +72,7 @@ export default {
        {
          console.log("enter key was pressed!",value);
        }
-    },
+       },
       
     prueba(){
       alert("selecciono un medico");
@@ -86,7 +84,15 @@ export default {
     emitError: function(error) {
       this.$emit("showError", error);
     },
-    getPaciente: async function(dni) {
+     mandarObraSocial() {
+      console.log("estoy mandando un ide de obra social", this.$data.paciente.obraSocial);
+       this.$emit('mandarIdObraSocial',  this.$data.paciente.obraSocial )
+    },
+     mandarPaciente() {
+      console.log("estoy mandando un paciente", this.$data.paciente );
+       this.$emit('mandarPaciente',  this.$data.paciente )
+    },
+  getPaciente: async function(dni) {
        
      if(event.key == "Enter")
        {
@@ -97,6 +103,9 @@ export default {
         console.log("Response: ", response);
         this.$data.paciente = response.data;
         console.log("Paciente: ",this.$data.paciente );
+        this.mandarPaciente();
+       
+        this.mandarObraSocial();
        
       } catch (error) {
         this.emitError(error);
@@ -104,11 +113,6 @@ export default {
       }
        }
     },
-    buscarMedico: function(buscarMedico) {
-      this.$data.espeSelecionada = buscarMedico;
-       console.log('buscar por: ', this.$data.espeSelecionada);
-      console.log('buscar por: ', buscarMedico)
-    }
-  }
+  } ,   
 }
 </script>

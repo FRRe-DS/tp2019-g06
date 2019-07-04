@@ -1,8 +1,9 @@
 <template>
   <div class="medicosList">
     <v-container>
-    <h3>2. Seleccione la especialidad</h3><br/>
-    <espe-list v-on:mandar="getMedicos($event)"></espe-list>
+    <h3 @click="prueba()">2. Seleccione la especialidad</h3><br/>
+    <espe-list :obraSocial="obraSocial" v-on:mandar="getMedicos($event)" ></espe-list>
+
     <h3>3. Seleccione el Médico</h3><br/>
     <v-layout row :wrap="true" align-center>
      
@@ -20,6 +21,7 @@
           persistent-hint
           return-object
           single-line
+          @input="enviarMedico(select)"
         >
         
           <template slot="selection" slot-scope="data">
@@ -47,11 +49,13 @@ import Medicos from "@/rest/medico";
 import especialidadesList from '@/components/especialidades/especialidadesList.vue';
 
 export default {
+  props: ['obraSocial'],
   components: {
     'espeList': especialidadesList,
   },
   data () {
     return {
+      
       headers: [
         {
           text: 'Id',
@@ -84,17 +88,19 @@ export default {
       ],
        select: { nombre: '', apellido: '' },
       medicos:[],
-     
+      obraSocial:{idObraSocial:0, nombre:'',direccion:''}
     }
   },
 
   created: function() {
     this.getMedicos(buscarMedico);
+
   },
 
   methods: {
-    prueba(){
-      alert("selecciono un medico");
+    pasarObraEspe(){
+      console.log("estoy pasando la obra a espe", this.obraSocial);
+      this.$data.obraSocial=this.obraSocial;
     },
     getMedicos: async function(buscarMedico) {
       try {
@@ -117,6 +123,13 @@ export default {
       this.$data.espeSelecionada = buscarMedico;
        console.log('buscar por: ', this.$data.espeSelecionada);
       console.log('buscar por: ', buscarMedico)
+    },
+    enviarMedico(medico){
+      console.log("estoy pasando un medico", medico);
+       this.$emit('enviarMedico', medico )
+    },
+    recibirObra(obraSocial){
+      this.$data.obraSocial=obraSocial
     }
   }
 }
