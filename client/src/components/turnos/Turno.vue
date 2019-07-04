@@ -63,6 +63,7 @@ export default {
       turnos:[],
       idm:0,
       hor_dis:[],
+        
       }
   },
 
@@ -104,11 +105,9 @@ export default {
     },
     addToAPI: async function() {
         try {
-        
-
         var dat: Turno = new Turno();
         dat.idTurno=0;
-                        this.$data.turnos = [];
+        this.$data.turnos = [];
                 try {
                   var mayor=0;
                   var arreglo=[];
@@ -139,12 +138,19 @@ export default {
       
         dat.motivoConsulta=this.$data.turno.motivoConsulta.toString();
         console.log(dat);
-        const response = Turnos.getRestApi().createTurno(dat);
+        if((typeof dat.paciente=="undefined")||(dat.hora=="")||(typeof dat.medico=="undefined")||(typeof dat.fecha=="undefined")||(dat.motivoConsulta=="")){
+            alert("FALTAN COMPLETAR CAMPOS!!");
+        }else{
+          const response = Turnos.getRestApi().createTurno(dat);
         console.log("Registro turno: ", response);
         alert("Registro de turno Exitoso ");
+        location.href="http://localhost:8081/";
+        }
+         
          } catch (error) {
+           alert("no se pudo registar el turno");
          this.emitError(error.message);
-          alert("no se pudo registar el turno") ;
+           
          }
          },
   /*  crearTurno: async function() {

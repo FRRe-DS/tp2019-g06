@@ -12,7 +12,7 @@
       placeholder="Ingrese su DNI"
       loading
       v-on:keyup="getPaciente(value)"
-      :rules="rules"
+      :rules="[rules.required, rules.reg]"
       counter="8"
     >
     
@@ -49,7 +49,8 @@ export default {
       value: '',
       select: { nombre: '', apellido: '' },
       paciente: [],
-      rules: [v => v.length <= 8 || 'Solo se puede ingresar hasta 8 digitos numericos para el DNI'],
+      rules: {reg : v => v.length <= 8 || 'Solo se puede ingresar hasta 8 digitos numericos para el DNI', 
+             required: value => !!value || 'Campo Obligatorio.'},
     }
   },
 
