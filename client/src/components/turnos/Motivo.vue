@@ -8,6 +8,7 @@
       label="Ingrese el motivo de su consulta"
       auto-grow
       @input="enviarMotivo(motivo)"
+      :rules="[rules.required, rules.reg]"
     ></v-textarea>
   </v-container>
 </template>
@@ -18,6 +19,8 @@
     data () {
       return {
         motivo:'',
+        rules: {reg : v => v.length >= 10 || 'Debe ingresar mas de 10 caracteres', 
+             required: value => !!value || 'Campo Obligatorio.'},
       }
     },
     methods: {
