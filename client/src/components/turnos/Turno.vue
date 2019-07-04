@@ -79,14 +79,6 @@ export default {
     prueba: function(){
       var dat: Turno = new Turno();
         console.log(dat);
-        
-      /*  this.$data.data.paciente = this.$data.turno.paciente;
-        this.$data.data.medico = this.$data.turno.medico;
-        this.$data.data.fecha = this.$data.turno.fecha;
-        this.$data.data.hora =  this.$data.turno.hora;
-        this.$data.data.motivoConsulta = this.$data.turno.motivoConsulta;
-        this.$data.data.obraSocial = this.$data.turno.obraSocial;
-        console.log(this.$data.data);*/
     },
     obtenerIdTurno: async function(variable){
       this.$data.turnos = [];
@@ -139,14 +131,10 @@ export default {
       
        //  var obra: ObraSocial=new ObraSocial();
         dat.paciente= this.$data.turno.paciente;
-       
         dat.medico= this.$data.turno.medico;
         dat.fecha= this.$data.turno.fecha;
         console.log("formato fecha", this.$data.turno.fecha )
         dat.hora= this.$data.turno.hora+":00";
-       
-       
-
         dat.obraSocial=this.$data.turno.obraSocial;
       
         dat.motivoConsulta=this.$data.turno.motivoConsulta.toString();
