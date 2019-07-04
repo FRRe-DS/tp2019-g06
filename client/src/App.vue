@@ -16,7 +16,7 @@
     </v-toolbar>
 
     <v-content>
-      <Home/>
+      <router-view />
     </v-content>
   </v-app>
 </template>
@@ -24,11 +24,13 @@
 <script>
 
 import Home from '@/views/Home';
+import RegistrarTurno from '@/views/RegistrarTurno';
 
 export default {
   name: 'App',
   components: {
-    Home,
+    'app-home': Home,
+    RegistrarTurno,
   },
   data () {
     return {

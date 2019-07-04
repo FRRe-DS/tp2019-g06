@@ -8,14 +8,14 @@
         <medico :obraSocial="obraSocial" v-on:enviarMedico="obtenerMedico($event)"></medico>
         <!--  v-on:enviarMedico="obtenerMedico($event)"-->
         <h3>4. Seleccione Fecha y Hora</h3><br/>
-        <fecha v-on:enviarFecha="obtenerFecha($event)"></fecha>
-        <hora v-on:enviarHora="obtenerHora($event)"></hora>
+        <fecha :idm="idm" v-on:enviarFecha="obtenerFecha($event)"></fecha>
+        <hora :hor_dis="hor_dis" v-on:enviarHora="obtenerHora($event)"></hora>
         <h3>5. Agregue el motivo de su consulta</h3><br/>
         <motivo v-on:enviarMotivo="obtenerMotivo($event)"></motivo>
         <h3>6. Presione Registrar Turno</h3><br/>
       <v-layout align-center>
      <v-flex xs12 sm4 text-xs-center>
-        <v-btn large @click="addToAPI()">Registrar Turno</v-btn>
+        <v-btn color="primary" large @click="addToAPI()">Registrar Turno</v-btn>
       
       
     </v-flex>
@@ -30,7 +30,6 @@
 import medicosList from '@/components/medicos/medicosList.vue';
 import obraSocialList from '@/components/obrasSociales/obraSocialList.vue';
 import especialidadesList from '@/components/especialidades/especialidadesList.vue';
-import RegistrarTurno from '@/components/turnos/RegistrarTurno.vue';
 import verificarPaciente from '@/components/paciente/verificarPaciente.vue';
 import Fecha from '@/components/turnos/Fecha.vue';
 import Hora from '@/components/turnos/Hora.vue';
@@ -47,7 +46,6 @@ export default {
     obraSocialList,
     'medico' : medicosList,
     especialidadesList,
-    RegistrarTurno,
     'verpac' : verificarPaciente,
     'fecha' : Fecha,
     'hora' : Hora,
@@ -63,6 +61,8 @@ export default {
       obraSocial:this.obraSocial},
       obraSocial:{idObraSocial:0, nombre:'',direccion:''},
       turnos:[],
+      idm:0,
+      hor_dis:[],
       }
   },
 
@@ -134,7 +134,7 @@ export default {
         dat.medico= this.$data.turno.medico;
         dat.fecha= this.$data.turno.fecha;
         console.log("formato fecha", this.$data.turno.fecha )
-        dat.hora= this.$data.turno.hora+":00";
+        dat.hora= this.$data.turno.hora;
         dat.obraSocial=this.$data.turno.obraSocial;
       
         dat.motivoConsulta=this.$data.turno.motivoConsulta.toString();
@@ -171,10 +171,11 @@ export default {
         console.log("este paciente tengo: ", this.$data.turno.paciente )
         console.log("Ref: ", this.$children[0])
       },
-      obtenerFecha: function(fecha) {
-        this.$data.turno.fecha = fecha
-        console.log("agrego la fecha: ", fecha)
-        console.log("esta fecha tengo: ", this.$data.turno.fecha )
+      obtenerFecha: function(fh) {
+        this.$data.turno.fecha = fh.fecha
+        this.$data.hor_dis = fh.hor_dis
+        console.log("agrego la fecha111111: ", fh.fecha)
+        console.log("esta fecha tengo111111: ", this.$data.turno.fecha )
       },
       obtenerHora: function(hora) {
         this.$data.turno.hora = hora
@@ -183,6 +184,7 @@ export default {
       },
       obtenerMedico: function(medico) {
         this.$data.turno.medico = medico
+        this.$data.idm = this.$data.turno.medico.idMedico
         console.log("agrego el medico: ", medico )
         console.log("este medico tengo: ", this.$data.turno.medico )
       },

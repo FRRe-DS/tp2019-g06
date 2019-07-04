@@ -56,36 +56,7 @@ export default {
   data () {
     return {
       
-      headers: [
-        {
-          text: 'Id',
-          align: 'left',
-          sortable: true,
-          value: 'id'
-        },
-        { 
-          text: 'Nombre', 
-          align: 'right',
-          sortable: true,
-          value: 'nombre' },
-        { 
-          text: 'Apellido', 
-          align: 'right',
-          sortable: true,
-          value: 'apellido' },
-        { 
-          text: 'Fecha Nacimiento', 
-          align: 'center',
-          sortable: true,
-          value: 'fechaNacimiento' 
-        },
-        { 
-          text: 'Nro Matricula', 
-          align: 'right',
-          sortable: true,
-          value: 'numeroMatricula' 
-        }
-      ],
+    
        select: { nombre: '', apellido: '' },
       medicos:[],
       obraSocial:{idObraSocial:0, nombre:'',direccion:''}
@@ -105,7 +76,7 @@ export default {
     getMedicos: async function(buscarMedico) {
       try {
         const response = await Medicos.getRestApi().getMedicoEspecialidad(buscarMedico);
-        console.log("aca no panza nada");
+  
         console.log("Response: ", response);
         this.$data.medicos = response.data;
         console.log("Medicos: ",this.$data.medicos );

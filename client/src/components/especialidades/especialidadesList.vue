@@ -64,7 +64,7 @@ export default {
       this.getMeObSoc();
       console.log("medico obrasocial", this.$data.medicosobrasociales);
 
-      console.log("recibi la obra en espe nae", this.obraSocial);
+      console.log("recibi la obra en espe ", this.obraSocial);
     },
 
     getMeObSoc: async function() {

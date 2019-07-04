@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import RegistrarTurno from './views/RegistrarTurno.vue';
+import Paciente from './views/Paciente.vue';
+import Medico from './views/Medico.vue';
 
 Vue.use(Router);
 
@@ -12,6 +15,21 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/registrar',
+      name: 'registrar',
+      component: RegistrarTurno,
+    },
+    {
+      path: '/paciente',
+      name: 'paciente',
+      component: Paciente,
+    },
+    {
+      path: '/medico',
+      name: 'medico',
+      component: Medico,
     },
     {
       path: '/about',

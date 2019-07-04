@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <v-container>
-      <Turno/>
+      <v-btn color="primary" to="registrar">Registrar Turno</v-btn>
+      <v-btn color="primary" to="paciente">Paciente -Turnos</v-btn>
+      <v-btn color="primary" to="medico">Medico -Turnos</v-btn>
     </v-container>
   </div>
 </template>

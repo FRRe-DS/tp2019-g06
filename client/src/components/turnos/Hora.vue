@@ -44,7 +44,7 @@
       </v-menu>-->
         <v-combobox
           v-model="hora"
-          :items="horario"
+          :items="this.hor_dis"
           chips
           label="Hora"
           @input="enviarHora(hora)"
@@ -73,18 +73,23 @@
 
 <script>
   export default {
+    props: ['hor_dis'],
     data () {
       return {
        //time: null,
        //minimo: new Date().toISOString().substr(0, 10),
        //menu2: false,
        //modal2: false,
+       hora:'',
        horario:["8:00","8:30","9:00","9:30","10:00","10:30","11:00","11:30","12:00"],
       }
       
     },
 
     methods:{
+      prueba(){
+        console.log("prueba",this.hor_dis)
+      },
       enviarHora(hora) {
       console.log("estoy mandando una hora", hora);
        this.$emit('enviarHora', hora)
