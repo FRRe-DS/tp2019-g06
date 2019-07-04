@@ -59,19 +59,19 @@ export default {
     
        select: { nombre: '', apellido: '' },
       medicos:[],
-      obraSocial:{idObraSocial:0, nombre:'',direccion:''}
+      obraSoc:{idObraSocial:0, nombre:'',direccion:''}
     }
   },
 
   created: function() {
-    this.getMedicos(buscarMedico);
+    //this.getMedicos(buscarMedico);
 
   },
 
   methods: {
     pasarObraEspe(){
       console.log("estoy pasando la obra a espe", this.obraSocial);
-      this.$data.obraSocial=this.obraSocial;
+      this.$data.obraSoc=this.obraSocial;
     },
     getMedicos: async function(buscarMedico) {
       try {
@@ -100,7 +100,7 @@ export default {
        this.$emit('enviarMedico', medico )
     },
     recibirObra(obraSocial){
-      this.$data.obraSocial=obraSocial
+      this.$data.obraSoc=obraSocial
     }
   }
 }

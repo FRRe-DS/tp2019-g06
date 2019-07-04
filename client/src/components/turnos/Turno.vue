@@ -67,9 +67,9 @@ export default {
   },
 
   created: function() {
-    this.obtenerPacientes();
-    this.obtenerFecha();
-    this.obtenerHora();
+    //this.obtenerPacientes();
+    //this.obtenerFecha();
+    //this.obtenerHora();
   
     
     },

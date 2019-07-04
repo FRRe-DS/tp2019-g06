@@ -18,10 +18,8 @@
          locale="es-ar"
          :min="minimo"
          v-model="fecha" @input="enviarFecha(fecha)"
-         
          ></v-date-picker>
        </v-menu>
-       <h2 @click="this.buscarTurnos()">prueba horarios</h2>
     </v-flex>
   </v-layout>
   

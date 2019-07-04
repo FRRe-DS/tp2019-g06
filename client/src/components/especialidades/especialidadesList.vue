@@ -3,7 +3,6 @@
     <v-container fluid>
       <v-layout wrap>
         <v-flex xs12 md4>
-          <h2 @click="prueba()">probar aqui</h2>
           <v-combobox
             v-model="select"
             return-object
@@ -47,7 +46,7 @@ export default {
       medicos: [],
       especialidad: [],
       esp: "",
-      obraSocial: { idObraSocial: 0, nombre: "", direccion: "" },
+      obraSoc: { idObraSocial: 0, nombre: "", direccion: "" },
       medicosobrasociales: [],
 
       filtro: []
