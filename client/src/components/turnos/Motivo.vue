@@ -1,6 +1,6 @@
 
 <template>
-  <v-container fluid grid-list-md>
+  <v-flex xs6 sm6 md6>
     <v-textarea
       v-model="motivo"
       name="input-7-1"
@@ -10,7 +10,7 @@
       @input="enviarMotivo(motivo)"
       :rules="[rules.required, rules.reg]"
     ></v-textarea>
-  </v-container>
+  </v-flex>
 </template>
   
 
@@ -26,8 +26,7 @@
     methods: {
       enviarMotivo(motivo){
       this.$data.motivo= motivo;
-      console.log("el motivo es ", motivo);
-       this.$emit('enviarMotivo',  this.$data.motivo )
+      this.$emit('enviarMotivo',  this.$data.motivo )
     },
     }
   }

@@ -1,15 +1,18 @@
 <template>
-  <div class="ver">
-     
-        <div class="flex display-1  .font-weight-light ">Para los turnos siga los siguientes pasos:</div>
+  <div class="medicosTurnos">
+    <v-container>
+        <h3 class="blue--text">Para consultar los turnos registrados siga los siguientes pasos </h3>
                 <br/>
-        <h3>Ingrese su Nº de matricula y luego presione enter</h3>
+        <h3 class="grey lighten-1">Ingrese su Nº de matricula y luego presione enter</h3>
         <vermedico v-on:mandarMedico="obtenerMedico($event)"></vermedico>
+        <h3 class="grey lighten-1"> Seleccione Fecha de Turno </h3>
         <fechaTurno v-on:enviarFechaTurno="obtenerFechaTurno($event)" ></fechaTurno>
-        <v-btn color="primary" large @click="crearListaTurnos()">Listar</v-btn>
+        <v-btn :small=true color="primary" @click="crearListaTurnos()">Listar</v-btn>
         <br/>
-         <h3>Listado de Turnos</h3><br/>
+        <br/>
+         <h3 class="grey lighten-1">Listado de Turnos</h3><br/>
          <lista-turnos :turnos_medico="turnos_medico"></lista-turnos>
+    </v-container>
       </div>
       
 </template>

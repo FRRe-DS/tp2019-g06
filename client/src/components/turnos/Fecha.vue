@@ -1,16 +1,5 @@
 <template>
-  <v-container>
-  <v-layout wrap>
-    <v-flex xs12 sm6 md6 xl6 >
-         
-      <h3> Seleccione Fecha de consulta </h3>
-      <br/>
-      <!--<v-date-picker v-model="fecha" 
-      :show-current="false"
-       locale="es-ar"
-       :min="minimo"
-       @select="enviarFecha">
-       </v-date-picker>-->
+      <v-flex xs12 sm6 md6 xl6 >
        <v-menu>
          <v-text-field :value="fecha" slot="activator" label="Fecha" prepend-icon="date_range"></v-text-field>
          <v-date-picker 
@@ -20,10 +9,7 @@
          v-model="fecha" @input="enviarFecha(fecha)"
          ></v-date-picker>
        </v-menu>
-    </v-flex>
-  </v-layout>
-  
-</v-container>
+      </v-flex>
 </template>
 
 <script lang="ts">

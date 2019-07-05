@@ -1,16 +1,7 @@
 <template>
-  <v-container>
-  <v-layout wrap>
+  <v-layout>
     <v-flex xs12 sm6 md6 xl6 >
-         
-      <h3> Seleccione Fecha de Turno </h3>
       <br/>
-      <!--<v-date-picker v-model="fecha" 
-      :show-current="false"
-       locale="es-ar"
-       :min="minimo"
-       @select="enviarFecha">
-       </v-date-picker>-->
        <v-menu>
          <v-text-field :value="fechaTurno " slot="activator" label="Fecha de Turno " prepend-icon="date_range"></v-text-field>
          <v-date-picker 
@@ -23,7 +14,6 @@
     </v-flex>
   </v-layout>
   
-</v-container>
 </template>
 
 <script lang="ts">

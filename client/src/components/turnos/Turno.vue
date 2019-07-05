@@ -1,29 +1,29 @@
 <template>
   <div class="turnos">
+    <v-container>
       <template>
-        <div class="flex display-1  .font-weight-light ">Para registrar su turno correctamente por favor siga los siguientes pasos:</div>
-     
+        <h3 class="blue--text">Para registrar su turno correctamente por favor siga los siguientes pasos:</h3>
         <br/>
-        <h3>1. Ingrese su Dni y luego presione enter</h3>
+        <h3 class="grey lighten-1">1. Ingrese su Dni y luego presione enter</h3>
+        <br/>
         <verpac v-on:mandarPaciente="obtenerPaciente($event)"></verpac>
+        <br/>
         <medico :obraSocial="obraSocial" v-on:enviarMedico="obtenerMedico($event)"></medico>
-        <!--  v-on:enviarMedico="obtenerMedico($event)"-->
-        <h3>4. Seleccione Fecha y Hora</h3><br/>
+        <h3 class="grey lighten-1">4. Seleccione Fecha y Hora</h3><br/>
         <fecha :idm="idm" v-on:enviarFecha="obtenerFecha($event)"></fecha>
         <hora :hor_dis="hor_dis" v-on:enviarHora="obtenerHora($event)"></hora>
-        <h3>5. Agregue el motivo de su consulta</h3><br/>
+        <br/>
+        <h3 class="grey lighten-1">5. Agregue el motivo de su consulta</h3><br/>
         <motivo v-on:enviarMotivo="obtenerMotivo($event)"></motivo>
-        <h3>6. Presione Registrar Turno</h3><br/>
+        <h3 class="grey lighten-1">6. Presione Registrar Turno</h3><br/>
       <v-layout align-center>
-     <v-flex xs12 sm4 text-xs-center>
-        <v-btn color="primary" large @click="addToAPI()">Registrar Turno</v-btn>
-      
-      
-    </v-flex>
-  </v-layout>
+     <v-flex xs12 sm2 text-xs-center>
+        <v-btn block :small=true color="primary" @click="addToAPI()">Registrar Turno</v-btn>
+      </v-flex>
+    </v-layout>
 </template>
 
-
+</v-container>
   </div>
 </template>
 
@@ -69,11 +69,7 @@ export default {
   },
 
   created: function() {
-    //this.obtenerPacientes();
-    //this.obtenerFecha();
-    //this.obtenerHora();
-  
-    
+
     },
 
   
@@ -155,52 +151,38 @@ export default {
            
          }
          },
-  /*  crearTurno: async function() {
-        
-        http
-        .post("/Turno", data)
-        .then(response => {
-          this.turno.idTurno = response.data.idTurno;
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
- 
-    },*/
+
       obtenerPaciente: function(paciente) {
         
         this.$data.turno.paciente = paciente
-        console.log('!!!!!', this.$data.turno.paciente.obraSocial)
+        console.log('obra social del paciente', this.$data.turno.paciente.obraSocial)
         console.log("agrego el paciente: ", paciente )
         this.$data.obraSocial = this.$data.turno.paciente.obraSocial
        this.$data.turno.obraSocial=this.$data.obraSocial;
         console.log("obra social en turno ",this.$data.obraSocial)
         console.log("este paciente tengo: ", this.$data.turno.paciente )
-        console.log("Ref: ", this.$children[0])
       },
       obtenerFecha: function(fh) {
         this.$data.turno.fecha = fh.fecha
         this.$data.hor_dis = fh.hor_dis
-        console.log("agrego la fecha111111: ", fh.fecha)
-        console.log("esta fecha tengo111111: ", this.$data.turno.fecha )
+        console.log("recibo la fecha: ", fh.fecha)
+        console.log("esta fecha tengo: ", this.$data.turno.fecha )
       },
       obtenerHora: function(hora) {
         this.$data.turno.hora = hora
-        console.log("agrego la hora: ", hora )
+        console.log("recibo la hora: ", hora )
         console.log("esta hora tengo: ", this.$data.turno.hora )
       },
       obtenerMedico: function(medico) {
         this.$data.turno.medico = medico
         this.$data.idm = this.$data.turno.medico.idMedico
-        console.log("agrego el medico: ", medico )
+        console.log("recibo el medico: ", medico )
         console.log("este medico tengo: ", this.$data.turno.medico )
       },
       obtenerMotivo: function(motivo) {
       
-        console.log("agrego el motivo: ", motivo )
           this.$data.turno.motivoConsulta = motivo
-        console.log("este motivo tengo: ", this.$data.turno.motivoConsulta )
+
       },
     
     

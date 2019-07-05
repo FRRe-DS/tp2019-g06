@@ -1,7 +1,5 @@
 <template>
   <div class="col-md-4">
-    <v-container fluid>
-      <v-layout wrap>
         <v-flex xs12 md4>
           <v-combobox
             v-model="select"
@@ -28,8 +26,7 @@
             </template>
           </v-combobox>
         </v-flex>
-      </v-layout>
-    </v-container>
+        <br/>
   </div>
 </template>
   
@@ -54,8 +51,8 @@ export default {
   },
 
   created: function() {
-    this.getMeObSoc();
-    this.getMedicosEspecialidad();
+    //this.getMeObSoc();
+    //this.getMedicosEspecialidad();
   },
 
   methods: {

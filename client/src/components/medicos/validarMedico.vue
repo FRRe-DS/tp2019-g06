@@ -1,7 +1,7 @@
 <template>
     <div class="validarMedico">
+      <br/>
     <template>
-  <v-container >
    <v-layout>
      <v-flex xs4 xl4 md4>
    <v-text-field 
@@ -23,13 +23,14 @@
       </template>
      
     </v-text-field>
-      <div class="blue lighten-3">
-   <h3> <div class="black--text " > Medico: {{medic.apellido}} {{medic.nombre}} </div></h3>
+      <div>
+   <h3 class="blue--text"> <div> {{medic.apellido}} {{medic.nombre}} </div></h3>
           </div>
+          <br/>
     
      </v-flex>
    </v-layout>
-  </v-container>
+
 </template>
  
     </div>

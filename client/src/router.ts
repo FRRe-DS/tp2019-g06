@@ -5,6 +5,7 @@ import RegistrarTurno from './views/RegistrarTurno.vue';
 import VerPaciente from './views/VerPaciente.vue';
 import Paciente from './views/Paciente.vue';
 import Medico from './views/Medico.vue';
+import CMedicoTurno from './views/CMedicoTurno.vue';
 
 Vue.use(Router);
 
@@ -28,9 +29,9 @@ export default new Router({
       component: Paciente,
     },
     {
-      path: '/verPaciente',
-      name: 'verPaciente',
-      component: VerPaciente,
+      path: '/medicoTurnos',
+      name: 'medicoTurnos',
+      component: CMedicoTurno,
     },
     {
       path: '/about',

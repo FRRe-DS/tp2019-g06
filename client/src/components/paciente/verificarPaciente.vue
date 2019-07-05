@@ -1,20 +1,18 @@
 <template>
     <div class="verificarPaciente">
     <template>
-  <v-container >
-   <v-layout>
-     <v-flex xs4 xl4 md4>
-   <v-text-field 
-      v-model="value"
-      type="number"
-      color="cyan darken"
-      label="validacion de usuario registrado en Hospital"
-      placeholder="Ingrese su DNI"
-      loading
-      v-on:keyup="getPaciente(value)"
-      :rules="[rules.required, rules.reg]"
-      counter="8"
-    >
+    <v-flex xs2 sm2 md2>
+    <v-text-field 
+        v-model="value"
+        type="number"
+        color="cyan darken"
+        label="validacion de paciente"
+        placeholder="Ingrese su DNI"
+        loading
+        v-on:keyup="getPaciente(value)"
+        :rules="[rules.required, rules.reg]"
+        counter="8"
+      >
     
       <template v-slot:progress>
         <v-progress-linear
@@ -28,13 +26,10 @@
       </template>
      
     </v-text-field>
-      <div class="blue lighten-3">
-   <h3> <div class="black--text " >Paciente: {{paciente.apellido}} {{paciente.nombre}} </div></h3>
+    </v-flex>
+      <div>
+   <h3><div class="blue--text " >{{paciente.apellido}} {{paciente.nombre}} </div></h3>
           </div>
-    
-     </v-flex>
-   </v-layout>
-  </v-container>
 </template>
  
     </div>
@@ -50,7 +45,7 @@ export default {
   data () {
     return {
       value: '',
-      select: { nombre: '', apellido: '' },
+      select: { nombre: '', apellido: ''},
       paciente: [],
       rules: {reg : v => v.length <= 8 || 'Solo se puede ingresar hasta 8 digitos numericos para el DNI', 
              required: value => !!value || 'Campo Obligatorio.'},
@@ -74,7 +69,7 @@ export default {
         console.log(event.key);
        if(event.key == "Enter")
        {
-         console.log("enter key was pressed!",value);
+         console.log("presiono enter!",value);
        }
        },
       
@@ -103,12 +98,10 @@ export default {
      try {
         this.$data.paciente = [];
         const response = await Pacientes.getRestApi().getDniPaciente(dni);
-        console.log("aca no panza nada");
         console.log("Response: ", response);
         this.$data.paciente = response.data;
         console.log("Paciente: ",this.$data.paciente );
         this.mandarPaciente();
-       
         this.mandarObraSocial();
        
       } catch (error) {

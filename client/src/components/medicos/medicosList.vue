@@ -1,23 +1,18 @@
 <template>
   <div class="medicosList">
-    <v-container>
-    <h3 @click="prueba()">2. Seleccione la especialidad</h3><br/>
+    <h3 class="grey lighten-1" @click="prueba()">2. Seleccione la especialidad</h3><br/>
     <espe-list :obraSocial="obraSocial" v-on:mandar="getMedicos($event)" ></espe-list>
 
-    <h3>3. Seleccione el Médico</h3><br/>
-    <v-layout row :wrap="true" align-center>
-     
-      <v-flex xs2 sm2 md2 lg2 xl2>
-        <v-subheader>Medicos</v-subheader>
-      </v-flex>
-      <v-flex xs4 sm4 md4 lg4 xl4 >
+    <h3 class="grey lighten-1">3. Seleccione el Médico</h3><br/>
+        
+        <v-flex xs4 sm4 md4 lg4 xl4 >
         <v-select
           v-model="select"
           :hint="`${select.especialidad}`"
           :items="medicos"
           item-text="nombre"
           item-value="apellido"
-          label="Select"
+          label="Medico"
           persistent-hint
           return-object
           single-line
@@ -34,12 +29,8 @@
           </template>
         
         </v-select>
-        
-      </v-flex>
-    </v-layout>
-
-    </v-container>
-
+        </v-flex>
+   <br/>
   </div>
   
 </template>
@@ -64,13 +55,12 @@ export default {
   },
 
   created: function() {
-    //this.getMedicos(buscarMedico);
 
   },
 
   methods: {
     pasarObraEspe(){
-      console.log("estoy pasando la obra a espe", this.obraSocial);
+      console.log("estoy pasando la obra al componente especialidad", this.obraSocial);
       this.$data.obraSoc=this.obraSocial;
     },
     getMedicos: async function(buscarMedico) {
