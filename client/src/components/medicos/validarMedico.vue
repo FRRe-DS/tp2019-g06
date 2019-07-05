@@ -1,5 +1,5 @@
 <template>
-    <div class="verificarPaciente">
+    <div class="validarMedico">
     <template>
   <v-container >
    <v-layout>
@@ -8,28 +8,23 @@
       v-model="value"
       type="number"
       color="cyan darken"
-      label="validacion de usuario registrado en Hospital"
-      placeholder="Ingrese su DNI"
+      label="validacion de Medico registrado en Hospital"
+      placeholder="Ingrese su Nº de matricula"
       loading
-      v-on:keyup="getPaciente(value)"
-      :rules="[rules.required, rules.reg]"
-      counter="8"
+      v-on:keyup="getMedico(value)"
     >
-    
       <template v-slot:progress>
         <v-progress-linear
           v-if="true"
           :value="progress"
           :color="color"
           height="9"
-          
         ></v-progress-linear>
-       
       </template>
      
     </v-text-field>
       <div class="blue lighten-3">
-   <h3> <div class="black--text " >Paciente: {{paciente.apellido}} {{paciente.nombre}} </div></h3>
+   <h3> <div class="black--text " > Medico: {{medic.apellido}} {{medic.nombre}} </div></h3>
           </div>
     
      </v-flex>
@@ -41,7 +36,7 @@
 </template>
 
 <script>
-import Pacientes from "@/rest/paciente";
+import Medicos from "@/rest/medico";
 
 export default {
   components: {
@@ -51,9 +46,10 @@ export default {
     return {
       value: '',
       select: { nombre: '', apellido: '' },
-      paciente: [],
+      medico: [],
       rules: {reg : v => v.length <= 8 || 'Solo se puede ingresar hasta 8 digitos numericos para el DNI', 
              required: value => !!value || 'Campo Obligatorio.'},
+        medic: [],     
     }
   },
 
@@ -82,38 +78,46 @@ export default {
       alert("selecciono un medico");
     },
     
-    clearSelectedPaciente: function() {
+    clearSelectedMedico: function() {
       this.$data.selected = null;
     },
     emitError: function(error) {
       this.$emit("showError", error);
     },
-     mandarObraSocial() {
-      console.log("estoy mandando un ide de obra social", this.$data.paciente.obraSocial);
-       this.$emit('mandarIdObraSocial',  this.$data.paciente.obraSocial )
+
+     mandarMedico() {
+      console.log("estoy mandando un paciente", this.$data.medic );
+       this.$emit('mandarMedico',  this.$data.medic )
     },
-     mandarPaciente() {
-      console.log("estoy mandando un paciente", this.$data.paciente );
-       this.$emit('mandarPaciente',  this.$data.paciente )
-    },
-  getPaciente: async function(dni) {
+  getMedico: async function(matricula) {
        
      if(event.key == "Enter")
        {
      try {
-        this.$data.paciente = [];
-        const response = await Pacientes.getRestApi().getDniPaciente(dni);
+        this.$data.medico = [];
+        this.$data.medic = [];
+        var arreglo = [];
+        const response = await Medicos.getRestApi().getAllMedicos();
         console.log("aca no panza nada");
         console.log("Response: ", response);
-        this.$data.paciente = response.data;
-        console.log("Paciente: ",this.$data.paciente );
-        this.mandarPaciente();
-       
-        this.mandarObraSocial();
-       
+          console.log("Response: ", arreglo);
+        this.$data.medico = response.data.content;
+         console.log("Response: ", this.$data.medico);
+        for (var i = 0; i < this.$data.medico.length; i++) {
+                  if(this.$data.medico[i].matricula==matricula){
+                    arreglo.push(this.$data.medico[i]);
+                    console.log("medico: ", arreglo);
+                    this.$data.medic = arreglo[0];
+                    console.log("medico: ", this.$data.medic);
+                    this.mandarMedico();
+                  }      
+             }
+        if (this.$data.medic.length==0){
+            alert("no se encontro ningun medico con esa matricula") ;
+        }
       } catch (error) {
         this.emitError(error);
-        alert("el paciente no esta registrado") ;
+        alert("ocurrio un error") ;
       }
        }
     },

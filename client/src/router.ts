@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import RegistrarTurno from './views/RegistrarTurno.vue';
+import VerPaciente from './views/VerPaciente.vue';
 import Paciente from './views/Paciente.vue';
 import Medico from './views/Medico.vue';
 
@@ -27,9 +28,9 @@ export default new Router({
       component: Paciente,
     },
     {
-      path: '/medico',
-      name: 'medico',
-      component: Medico,
+      path: '/verPaciente',
+      name: 'verPaciente',
+      component: VerPaciente,
     },
     {
       path: '/about',

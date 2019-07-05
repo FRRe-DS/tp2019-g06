@@ -1,7 +1,8 @@
 <template>
   <div class="turnos">
       <template>
-        <h2>Para registrar su turno correctamente por favor siga los siguientes pasos: </h2>
+        <div class="flex display-1  .font-weight-light ">Para registrar su turno correctamente por favor siga los siguientes pasos:</div>
+     
         <br/>
         <h3>1. Ingrese su Dni y luego presione enter</h3>
         <verpac v-on:mandarPaciente="obtenerPaciente($event)"></verpac>
@@ -103,6 +104,7 @@ export default {
         
       }
     },
+
     addToAPI: async function() {
         try {
         var dat: Turno = new Turno();
