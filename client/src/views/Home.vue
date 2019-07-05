@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <v-container>
-    <v-layout>
+    <v-layout justify-center>
     <v-flex xs3>
         <v-card dark color="blue lighten-4" class="pa-3 ma-4">
           <v-card-text class="px-0"></v-card-text>
@@ -20,7 +20,7 @@
           <v-btn block small="true" color="primary" to="paciente">Paciente -Turnos</v-btn>
         </v-card>
       </v-flex> -->
-       <v-flex xs3 justify-center>
+       <v-flex xs3>
         <v-card dark color="blue lighten-4" class="pa-3 ma-4">
           <v-card-text class="px-0"></v-card-text>
           <v-img
